@@ -1,22 +1,36 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './login_layout.css';
+import back from './images/coffee.jpg';
 
-var bgColors = { "Default": "#81b71a",
-    "Blue": "#00B1E1",
-    "Cyan": "#37BC9B",
-    "Green": "#8CC152",
-    "Red": "#E9573F",
-    "Yellow": "#F6BB42",
+const backStyle={
+    backgroundImage: 'url(' + back + ')',
+    backgroundRepeat: null,
+    backgroundSize: '100%',
 };
 
-class LoginLayout extends Component {
+const formStyle={
+    marginLeft: '400px',
+};
 
+class LoginLayout extends Component{
     render(){
-        return (
-            <a></a>
+        return(
+            <div className={"form1"} style={backStyle}>
+                <h1>Login/Register</h1>
+
+                <form style={formStyle}>
+                    <label>Email:</label><input />
+                    <label>Password:</label><input />
+                    <button>Login</button>
+                </form>
+            </div>
         );
     }
-
 }
+
+
+
+
+
 
 export default LoginLayout;
