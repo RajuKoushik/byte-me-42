@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import food1 from "./images/food1.png";
 import food2 from "./images/food2.png";
-import shopping1 from "./images/shopping1.png";
+import shopping1 from "./images/shopping.png";
 import shopping2 from "./images/shopping2.jpg";
 import shopping3 from "./images/shopping3.svg";
 import tech1 from "./images/tech1.png";
