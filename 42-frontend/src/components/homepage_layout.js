@@ -1,20 +1,13 @@
 import React, {Component} from 'react';
-import search from './images/search.png';
-
-const divStyle = {
-    backgroundColor: '#F4EEEE'
-};
-
-const searchStyle = {
-  height: '40px',
-  width: '40px'
-};
+import './homepage.css';
+import Logo42 from './images/42logo.png';
 
 
 class HomepageLayout extends Component{
     render(){
         return(
-            <body style={divStyle}>
+            <body>
+            <img className='logo' src = {Logo42} />
             </body>
         );
     }
