@@ -1,5 +1,10 @@
+from blog.forms import PostForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+
+from .models import Post, Profile
 
 
 def home(request):
@@ -27,3 +32,47 @@ def user_profile(request, username):
         return render(request, template, context)
     else:
         return JsonResponse({'message': 'User not found'})
+
+
+@login_required
+def create_post(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            words = post.content.split()
+            if len(words) > 42:
+                msg = 'Max allowed words are 42.'
+                return JsonResponse({'message': msg})
+            post.author = request.user.profile
+            post.slug = post.id
+            post.seo_description = post.title
+            post.seo_title = post.title
+            post.save()
+            return redirect(post.get_absolute_url())
+    else:
+        form = PostForm()
+    return render(request, 'blog/post/create_post.html', {'form': form})
+
+
+@login_required
+def post_edit(request, post_id):
+    if Post.objects.filter(id=post_id):
+        post = get_object_or_404(Post, id=post_id)
+        if request.method == "POST":
+            form = PostForm(request.POST, instance=post)
+            if form.is_valid():
+                post = form.save(commit=False)
+                words = post.content.split()
+                if len(words) > 42:
+                    msg = 'Max allowed words are 42.'
+                    return JsonResponse({'message': msg})
+                post.save()
+                return redirect(post.get_absolute_url())
+        elif post.author.user.username == request.user.username:
+            form = PostForm(instance=post)
+            return render(request, 'blog/post/create_post.html', {'form': form})
+        else:
+            return JsonResponse({'message': 'You can\'t edit this post'})
+    else:
+        return JsonResponse({'message': 'Post not found'})
