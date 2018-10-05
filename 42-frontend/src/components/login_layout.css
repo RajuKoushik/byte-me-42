@@ -24,10 +24,19 @@ form{
     margin-right: 6%;
     float: right;
     display: inline-block;
-
-    -webkit-backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
 
+}
+
+#signUp-form{
+	 padding: 25px 15px;
+    margin-top: 10%;
+    margin-right: 6%;
+    float: right;
+    display: inline-block;
+	-webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
 h1{
@@ -49,6 +58,16 @@ label {
 
 }
 
+#signUp-label{
+	display: inline;
+    margin-top: 4.5%;
+    margin-left: 26%;
+    font-size: 15px;
+    text-transform: uppercase;
+    position: absolute;
+    color: white;
+    font-weight: bolder;
+}
 input{
     display: inline;
     padding: .50rem .75rem;
@@ -65,14 +84,52 @@ input{
     border-radius: 3px;
 }
 
+#signUp-input{
+	display: block;
+    padding: .50rem .75rem;
+    width: 80%;
+    font-size: 1rem;
+    margin-left: 250%;
+    margin-top: 30%;
+    color: dimgray;
+    background-color: white;
+    border-top: 0;
+    border-right: 20px;
+    border-bottom: 1px solid #eee;
+    border-left: 30rem;
+    border-radius: 3px;
+}
 button {
     display: inline;
     padding: .40rem .80rem;
     position: absolute;
     top: 0;
     right: 2%;
-    margin-top: 1.7%;
+    margin-top: 1.4%;
     margin-left: 90%;
+    margin-bottom: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    vertical-align: top;
+    background-color: dimgray;
+    border: solid transparent;
+    border-radius: 3px;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+    font: 15px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-weight: bolder;
+}
+
+#signUp-button{
+	display: inline;
+    padding: .40rem .80rem;
+    position: absolute;
+    top: 0;
+    right: 9%;
+    width: 23%;
+    margin-top: 35%;
+    margin-left: 1.5%;
     margin-bottom: 100%;
     text-align: center;
     text-transform: uppercase;
