@@ -6,6 +6,7 @@ import HomepageLayout from './components/homepage_layout';
 import SearchBar from './components/homepage_search';
 import Categories from './components/homepage_categories';
 import Companies from './components/homepage_companies';
+import Header from './components/homepage_header';
 
 class App extends Component {
     render(){
@@ -16,6 +17,7 @@ class App extends Component {
                 <SearchBar />
                 <Categories />
                 <Companies />
+                <Header />
             </div>
         );
     }

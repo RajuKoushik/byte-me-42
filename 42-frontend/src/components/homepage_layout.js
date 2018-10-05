@@ -3,11 +3,20 @@ import './homepage.css';
 import Logo42 from './images/42logo.png';
 
 
+const divStyle = {
+    backgroundColor : '#C0C0C0'
+}
+
+
+
 class HomepageLayout extends Component{
     render(){
         return(
             <body>
-            <img className='logo' src = {Logo42} />
+            <div>
+                <img className='logo' src = {Logo42} />
+                <h></h>
+            </div>
             </body>
         );
     }
