@@ -29,7 +29,7 @@ class Categories extends Component{
             <div style={categoryStyle}>
                 <img src={fashion} height={40} width={40} style={imageStyle}/>
                 <img src={food} height={40} width={40} style={imageStyle}/>
-                <img src={shopping06} height={40} width={40} style={imageStyle}/>
+                <img src={shopping06} height={60} width={60} style={imageStyle}/>
                 <img src={tech} height={40} width={40} style={imageStyle}/>
                 <img src={travel} height={40} width={40} style={imageStyle}/>
 
