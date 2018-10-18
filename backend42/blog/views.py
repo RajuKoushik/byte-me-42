@@ -33,6 +33,23 @@ def user_profile(request, username):
     else:
         return JsonResponse({'message': 'User not found'})
 
+@login_required
+def follow(request, username):
+    user = User.objects.get(username=username)
+    follower = request.user.profile
+    following = user.profile
+    if request.user.username != username:
+        if Follow.objects.filter(follower=follower, following=following):
+            followed_by_user = Follow.objects.filter(follower=follower,
+                                                     following=following)
+            followed_by_user.delete()
+        else:
+            follower.follow(username)
+        return JsonResponse({'message': 'success'})
+    else:
+        msg = 'Have you lost your path?'
+        return JsonResponse({'message': msg})
+
 
 @login_required
 def create_post(request):
@@ -76,3 +93,20 @@ def post_edit(request, post_id):
             return JsonResponse({'message': 'You can\'t edit this post'})
     else:
         return JsonResponse({'message': 'Post not found'})
+
+@login_required
+def follow(request, username):
+    user = User.objects.get(username=username)
+    follower = request.user.profile
+    following = user.profile
+    if request.user.username != username:
+        if Follow.objects.filter(follower=follower, following=following):
+            followed_by_user = Follow.objects.filter(follower=follower,
+                                                     following=following)
+            followed_by_user.delete()
+        else:
+            follower.follow(username)
+        return JsonResponse({'message': 'success'})
+    else:
+        msg = 'Have you lost your path?'
+        return JsonResponse({'message': msg})
