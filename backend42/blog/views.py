@@ -2,7 +2,10 @@ from blog.forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.forms.widgets import HiddenInput
 from django.shortcuts import render, redirect, get_object_or_404
+from rest_framework.decorators import api_view
 
 from .models import Post, Profile
 
