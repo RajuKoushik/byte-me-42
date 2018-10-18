@@ -113,3 +113,30 @@ def follow(request, username):
     else:
         msg = 'Have you lost your path?'
         return JsonResponse({'message': msg})
+
+@login_required
+@api_view(['GET'])
+def like(request, post_id, username):
+    print('Came in method')
+    if request.method == 'GET':
+        if request.user.username == username:
+            post = Post.objects.get(id=post_id)
+            user = User.objects.get(username=username)
+            profile = Profile.objects.get(user=user)
+            if Like.objects.filter(profile=profile, post=post):
+                liked_by_user = Like.objects.filter(profile=profile, post=post)
+                liked_by_user.delete()
+                return Response({'PostId': post_id, 'status': False},
+                                status=status.HTTP_200_OK
+                                )
+            else:
+                post.like(username)
+                return Response({'PostId': post_id, 'status': True},
+                                status=status.HTTP_200_OK
+                                )
+        else:
+            msg = "User: " + username + " invalid or currently not logged in"
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+
