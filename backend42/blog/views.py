@@ -137,6 +137,49 @@ def like(request, post_id, username):
         else:
             msg = "User: " + username + " invalid or currently not logged in"
             return Response(status=status.HTTP_403_FORBIDDEN)
+        
+@login_required
+def fork(request, post_id):
+    if Post.objects.filter(id=post_id):
+        parent_posts = []
+        temp_post = get_object_or_404(Post, id=post_id)
+        while temp_post.is_forked:
+            parent_posts.append(temp_post)
+            temp_post = get_object_or_404(Post, id=temp_post.origin_id)
+        parent_posts.append(temp_post)
+
+        if len(parent_posts) >= 10:
+            return JsonResponse({'message': 'Reached max no of forks, 10'})
+
+        size_pp = len(parent_posts)
+
+        if request.method == "POST":
+            parent_post = Post.objects.get(id=post_id)
+            form = ForkPostForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                words = post.content.split()
+                if len(words) > 42:
+                    msg = 'Max allowed words are 42.'
+                    return JsonResponse({'message': msg})
+                post.is_forked = True
+                post.origin_id = post_id
+                post.author = request.user.profile
+                post.slug = post.id
+                post.seo_description = post.title
+                post.seo_title = post.title
+                post.title = parent_post.title
+                post.is_daddu = True
+                post.save()
+                temp_post = get_object_or_404(Post, id=post_id)
+                temp_post.is_daddu = False
+                temp_post.save()
+                return redirect(post.get_absolute_url())
+        else:
+            form = ForkPostForm()
+        return render(request, 'blog/post/create_post.html', {'form': form, 'parent_posts': reversed(parent_posts), 'size_pp': size_pp})
+        
+        
 
 
 
