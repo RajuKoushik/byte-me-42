@@ -1,0 +1,19 @@
+html {
+    box-sizing: border-box;
+}
+
+body{
+    background-color : rgb(227, 227, 227);
+    font: 60px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+
+}
+
+h1{
+    font: 60px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-align: center;
+}
+
+#likes{
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 35%;
+}
