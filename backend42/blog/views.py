@@ -27,3 +27,20 @@ def user_profile(request, username):
         return render(request, template, context)
     else:
         return JsonResponse({'message': 'User not found'})
+
+@login_required
+def follow(request, username):
+    user = User.objects.get(username=username)
+    follower = request.user.profile
+    following = user.profile
+    if request.user.username != username:
+        if Follow.objects.filter(follower=follower, following=following):
+            followed_by_user = Follow.objects.filter(follower=follower,
+                                                     following=following)
+            followed_by_user.delete()
+        else:
+            follower.follow(username)
+        return JsonResponse({'message': 'success'})
+    else:
+        msg = 'Have you lost your path?'
+        return JsonResponse({'message': msg})
