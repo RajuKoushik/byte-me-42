@@ -5,7 +5,7 @@ html {
 body{
     background-color : rgb(227, 227, 227);
     font: 60px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-
+    align-items: center;
 }
 
 h1{
@@ -13,7 +13,58 @@ h1{
     text-align: center;
 }
 
-#likes{
+form{
+    width: 70%;
+    align-items: center;
+    margin-left: 22%;
+}
+
+#name{
+    position: absolute;
+    font: 77% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-align: center;
+    margin-top: 5%;
+    margin-left: 20%;
+}
+
+#followers{
+    position: absolute;
     font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    margin-left: 35%;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+
+#followers_no{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 13%;
+    margin-top: 13%;
+}
+
+#following{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 23%;
+    margin-top: 10%;
+}
+
+#following_no{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 26%;
+    margin-top: 13%;
+}
+
+#posts{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 36%;
+    margin-top: 10%;
+}
+
+#posts_no{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 37%;
+    margin-top: 13%;
 }
