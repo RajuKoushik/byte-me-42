@@ -4,7 +4,7 @@ import Logo42 from './images/42logo.png';
 
 
 const divStyle = {
-    backgroundColor : '#C0C0C0'
+    backgroundColor : 'rgb(240, 240, 240)'
 }
 
 
