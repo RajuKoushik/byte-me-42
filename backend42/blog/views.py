@@ -67,6 +67,18 @@ class homeSerializer(APIView):
         pass
 
 
+class AllPost(APIView):
+
+    def get_post(self, request):
+        profile = request.user.profile
+        all_followers = profile.get_followers()
+        all_post = Post.objects.filter(author__in=all_followers)
+        serializer = PostSerializer(all_post, many=True)
+
+        return Response(serializer.data)
+
+
+
 def user_profile(request, username):
     if User.objects.get(username=username):
         profile = Profile.objects.get(
