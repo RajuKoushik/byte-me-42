@@ -15,7 +15,7 @@ class Header extends Component {
     render(){
         return (
             <body>
-                <h> style={hstyle}></h>
+                <h style={hstyle}/>
             </body>
         );
     }
