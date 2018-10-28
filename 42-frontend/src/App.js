@@ -11,18 +11,25 @@ import Posts from './components/posts';
 
 class App extends Component {
     render(){
-        return(
-            <div>
-                <LoginLayout />
-                <HomepageLayout />
-                <SearchBar />
-                <Categories />
-                <Companies />
-                <Header />
-                <Posts />
-            </div>
-        );
+      let state = 'homepage';
+      switch(state){
+        case 'homepage' :
+            return(
+                <div>
+                    <LoginLayout />
+                    <HomepageLayout />
+                    <SearchBar />
+                    <Categories />
+                    <Companies />
+                    <Header />
+                    <Posts />
+                </div>
+                );
+        default:
+        return null;
+      }
     }
+    
 }
 
 export default App;
