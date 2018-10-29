@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/bootstrap.min.css';
 import post1 from './images/post1.jpg';
 
 

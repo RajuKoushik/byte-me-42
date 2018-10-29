@@ -1,5 +1,5 @@
 ./42-frontend/DS_STORE
-./42-frontend/node_modules
+node_modules
 ./42-frontend/scripts/flow/*/.flowconfig
 ./42-frontend/*~
 ./42-frontend/*.pyc
