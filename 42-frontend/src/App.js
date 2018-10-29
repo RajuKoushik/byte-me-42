@@ -8,18 +8,20 @@ import Categories from './components/homepage_categories';
 import Companies from './components/homepage_companies';
 import Header from './components/homepage_header';
 import Posts from './components/posts';
+import Branches from "./components/branches";
 
 class App extends Component {
     render(){
         return(
             <div>
-                <LoginLayout />
+                {/*<LoginLayout />
                 <HomepageLayout />
                 <SearchBar />
                 <Categories />
                 <Companies />
                 <Header />
-                <Posts />
+                <Posts />*/}
+                <Branches />
             </div>
         );
     }

@@ -1,0 +1,7 @@
+body {
+    background: url("./images/background.jpg") no-repeat center center fixed hsla(0, 100%, 90%, 0.1) ;
+    background-size: cover;
+    background-blend-mode: lighten;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Marvel');
