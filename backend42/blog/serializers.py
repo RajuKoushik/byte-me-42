@@ -30,7 +30,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = (
             'id', 'is_forked', 'origin_id', 'is_published', 'title', 'slug',
-            'content', 'author', 'created', 'lik')
+            'content', 'author.user', 'created', 'lik')
 
 
 class FollowSerializer(serializers.ModelSerializer):
