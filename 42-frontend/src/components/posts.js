@@ -36,7 +36,7 @@ class Posts extends Component {
  constructor(){
     super();
      this.state = {
-        postk : []
+        home_page_posts : []
 
     }
  }
@@ -46,23 +46,24 @@ class Posts extends Component {
         try {
            fetch('http://127.0.0.1:8000/blog/test').
            then(result => {
-            return {"postk" : [{"current_user": "test", "post_name": "Dusra Post", "post_content": "FIr muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
+            return {"posts" : [{"current_user": "test", "post_name": "Dusra Post", "post_content": "FIr muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
                                      {"current_user": "test2", "post_name": "Dusra Post k", "post_content": "FIr muje hi aana pada k", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"}]};
+                                     // return result.json();
            }).then(data => {
-                let postk = data.postk.map(postk =>{
+                let posts = data.posts.map(post =>{
                     return (
 
                         <div>
                         <img className="card-img-top" src={post1} alt="Card image cap" /> 
                         <div className="card-body">
-                            <h5 className="card-title">{postk.post_name}</h5>
-                            <p className="card-text">{postk.post_content}</p>
+                            <h5 className="card-title">{post.post_name}</h5>
+                            <p className="card-text">{post.post_content}</p>
                             <a href="#" onClick={this.onButtonClick} className="btn btn-primary">Go somewhere</a>
                         </div>
                         </div>
                     )
                 })
-                 this.setState({postk: postk}); 
+                 this.setState({home_page_posts: posts}); 
            })
            
          
@@ -77,7 +78,7 @@ class Posts extends Component {
         return(
             <body>
                 <div className="card" style={postStyle1} >   
-                    {this.state.postk}
+                    {this.state.home_page_posts}
                 </div>
             </body>
         );
