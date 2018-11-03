@@ -96,10 +96,11 @@ const companyStyle15= {
 };
 
 
+
 class Companies extends Component {
     render(){
         return(
-            <div>
+            <div >
                 <img src={tacoBell} height={0} width={40} style={companyStyle1}/>
                 <br />
                 <img src={chipotle} height={70} width={70} style={companyStyle2}/>

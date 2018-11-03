@@ -9,20 +9,40 @@ import Companies from './components/homepage_companies';
 import Header from './components/homepage_header';
 import Posts from './components/posts';
 
+
+
 class App extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+         selectCase: 'home'
+        };  
+
+        this.selectPost = this.selectPost.bind(this);
+    }
+
+    selectPost(){
+      this.setState({selectCase:'post'});
+    }
     render(){
-      let state = 'homepage';
-      switch(state){
-        case 'homepage' :
+      switch(this.state.selectCase){
+        case 'home' :
             return(
-                <div>
-                    <LoginLayout />
-                    <HomepageLayout />
-                    <SearchBar />
-                    <Categories />
-                    <Companies />
-                    <Header />
-                    <Posts />
+                <div >
+                   <Header />
+                   <Categories />
+                   <Companies />
+                   <Posts onPostSelect={this.selectPost} />
+                </div>
+                );
+        case 'post' :
+        return(
+                <div >
+                   <Header />
+                   <Categories />
+                   <Companies />
                 </div>
                 );
         default:

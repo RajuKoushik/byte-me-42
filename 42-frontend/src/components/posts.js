@@ -33,11 +33,10 @@ const eachPost = {
 
 class Posts extends Component {
 
- constructor(){
-    super();
+ constructor(props){
+    super(props);
      this.state = {
         home_page_posts : []
-
     }
  }
 
@@ -58,7 +57,7 @@ class Posts extends Component {
                         <div className="card-body">
                             <h5 className="card-title">{post.post_name}</h5>
                             <p className="card-text">{post.post_content}</p>
-                            <a href="#" onClick={this.onButtonClick} className="btn btn-primary">Go somewhere</a>
+                            <a onClick={this.props.onPostSelect} className="btn btn-primary">Go somewhere</a>
                         </div>
                         </div>
                     )
@@ -84,9 +83,6 @@ class Posts extends Component {
         );
     }
 
-    onButtonClick(event){
-        console.log(event.target.value);
-    }
 
 }
 
