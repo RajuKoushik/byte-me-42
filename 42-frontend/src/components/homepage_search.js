@@ -18,10 +18,8 @@ const inputStyle = {
 class SearchBar extends Component {
     render(){
         return (
-            <body>
-                <input style={inputStyle}>
-                </input>
-            </body>
+            <input type="text" placeholder="Search" style = {inputStyle}>
+            </input>
         );
     }
 }

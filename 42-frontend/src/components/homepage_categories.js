@@ -17,6 +17,16 @@ const categoryStyle = {
     fontStyle: 'bold'
 };
 
+const inputStyle = {
+    paddingTop: '40px',
+    fontFamily: '"Lucida Console", Monaco, monospace',
+    //alignItems: 'center'
+    marginTop: '20%',
+    marginLeft: '20%',
+    fontSize: '30px',
+    color: '#900C3F',
+    fontStyle: 'bold'
+}
 const imageStyle = {
     marginLeft: '110px',
     height: '40px',
@@ -32,7 +42,7 @@ class Categories extends Component{
                 <img src={shopping06} height={60} width={60} style={imageStyle}/>
                 <img src={tech} height={40} width={40} style={imageStyle}/>
                 <img src={travel} height={40} width={40} style={imageStyle}/>
-
+              <input type="text" placeholder="  Post  " style={inputStyle} />
             </div>
         );
     }
