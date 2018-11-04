@@ -1,0 +1,72 @@
+html {
+    box-sizing: border-box;
+}
+
+body{
+    background-color : rgb(227, 227, 227);
+    font: 60px "Aveny-T Regular", "Lucida Grande", sans-serif;
+    align-items: center;
+}
+
+h1{
+    font: 60px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-align: center;
+}
+
+form{
+    width: 70%;
+    height : 80%;
+    align-items: center;
+    margin-left: 22%;
+}
+
+#name{
+    position: absolute;
+    font: 77% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    align-self: center;
+    margin-top: 0%;
+    margin-left: 20%;
+}
+
+#followers{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 10%;
+    margin-top: 7%;
+}
+
+#followers_no{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 12%;
+    margin-top: 9.5%;
+}
+
+#following{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    align-self: center;
+    margin-left: 25%;
+    margin-top: 7%;
+}
+
+#following_no{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 27%;
+    margin-top: 9.5%;
+}
+
+#posts{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 41%;
+    margin-top: 7%;
+}
+
+#posts_no{
+    position: absolute;
+    font: 40% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-left: 42%;
+    margin-top: 9.5%;
+}

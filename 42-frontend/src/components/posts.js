@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import './css/bootstrap.min.css';
-
 import post1 from './images/post1.jpg';
 
 
@@ -9,11 +8,11 @@ const postStyle1 = {
     position: 'absolute',
     marginLeft: '10%',
     top:'101%',
+    top:'55%',
     height: '290px',
     width: '300px',
     backgroundColor: 'white',
     color: 'rgb(100, 100, 100)'
-
 }
 const postStyle2 = {
     position: 'absolute',
@@ -59,6 +58,7 @@ const link = {
     color : 'rgb(71, 71, 71)',
     fontWeight : 'lighter' ,
     fontSize : '24px',
+<<<<<<< HEAD
     marginLeft: '90%',
     marginTop : '60%'
 }
