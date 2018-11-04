@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+
+import food1 from "./images/food1.png";
+import food2 from "./images/food2.png";
+import shopping1 from "./images/shopping.png";
 import tacoBell from "./images/tacoBell.svg";
 import chipotle from "./images/chipotle.png";
 import shopping2 from "./images/shopping2.jpg";
