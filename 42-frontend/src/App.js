@@ -10,11 +10,11 @@ import Companies from './components/homepage_companies';
 import Logo from './components/logo';
 import Header from './components/homepage_header';
 import Posts from './components/posts';
+
+import Branches from "./components/branches";
+
 import User_profile from './components/user_profile';
 import './components/user_profile.css';
-
-
-
 
 
 
@@ -48,6 +48,7 @@ class App extends Component {
         return(
 
             <div>
+              <Branches />
               <SignUp />
               <LoginLayout />
               <Login/>
