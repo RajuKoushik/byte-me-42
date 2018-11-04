@@ -10,8 +10,9 @@ import Companies from './components/homepage_companies';
 import Logo from './components/logo';
 import Header from './components/homepage_header';
 import Posts from './components/posts';
-
 import Branches from "./components/branches";
+import NewPost from './components/homepage_newpost'
+import LoginLayout from './components/login_layout'
 
 import User_profile from './components/user_profile';
 import './components/user_profile.css';
@@ -42,6 +43,7 @@ class App extends Component {
                    <Categories />
                    <Companies />
                    <Posts onPostSelect={this.selectPost} />
+                    <NewPost />
                 </div>
                 );
         case 'post' :
