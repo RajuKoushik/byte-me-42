@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './css/bootstrap.min.css';
 import post1 from './images/post1.jpg';
-
+import axios from 'axios'
 
 const postStyle1 = {
     position: 'absolute',
@@ -66,7 +66,7 @@ class Posts extends Component {
     
     async componentDidMount() {
         try {
-           fetch('http://127.0.0.1:8000/blog/test').
+           fetch('http://ec2-18-220-22-245.us-east-2.compute.amazonaws.com:8080/blog/all_post/').
            then(result => {
             return {"posts" : [{"current_user": "test", "post_name": "Dusra Post", "post_content": "FIr muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
                                      {"current_user": "test2", "post_name": "Dusra Post k", "post_content": "FIr muje hi aana pada k", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"}]};

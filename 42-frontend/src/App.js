@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SignUp from './components/signUp';
+import LoginLayout from './components/login_layout'
 import './App.css';
 import './components/signUp.css';
 import Login from './components/login.js';
