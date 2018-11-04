@@ -3,11 +3,11 @@ import React, {Component} from 'react';
 const inputStyle = {
     justifyContent: 'center',
     position: 'absolute',
-    marginTop: '-8%',
+    marginTop: '-5%',
     alignItems: 'center',
     width: '400px',
     height: '46px',
-    marginLeft: '34%',
+    marginLeft: '38%',
     fontFamily: '"Comic Sans MS", cursive, sans-serif',
     fontSize: '140%',
     background: '#EDECEC',
