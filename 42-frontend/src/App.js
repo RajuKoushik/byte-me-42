@@ -12,6 +12,7 @@ import Companies from './components/homepage_companies';
 import Logo from './components/logo';
 
 import Header from './components/homepage_header';
+import Posts from './components/posts';
 
 
 class App extends Component {
@@ -33,7 +34,7 @@ class App extends Component {
                 <Companies />
                 <Header />
 
-
+                <Posts />
             </div>
         );
     }

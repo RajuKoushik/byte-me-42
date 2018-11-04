@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
+
 import './css/bootstrap.min.css';
+
 import post1 from './images/post1.jpg';
 
 
 const postStyle1 = {
     position: 'absolute',
     marginLeft: '10%',
+
     top:'70%',
+
     height: '260px',
     width: '300px'
 }
