@@ -13,7 +13,7 @@ const categoryStyle = {
     marginTop: '-6%',
     marginLeft: '20%',
     fontSize: '30px',
-    color: '#900C3F',
+    color: '#F0F0F0',
     fontStyle: 'bold'
 };
 

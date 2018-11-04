@@ -8,25 +8,30 @@ import post1 from './images/post1.jpg';
 const postStyle1 = {
     position: 'absolute',
     marginLeft: '10%',
+    top:'101%',
+    height: '290px',
+    width: '300px',
+    backgroundColor: 'white',
+    color: 'rgb(100, 100, 100)'
 
-    top:'70%',
-
-    height: '260px',
-    width: '300px'
 }
 const postStyle2 = {
     position: 'absolute',
     marginLeft: '40%',
     top:'101%',
-    height: '260px',
-    width: '300px'
+    height: '290px',
+    width: '300px',
+    backgroundColor: 'white',
+    color: 'rgb(100, 100, 100)'
 }
 const postStyle3 = {
     position: 'absolute',
     marginLeft: '70%',
     top:'101%',
-    height: '260px',
-    width: '300px'
+    height: '290px',
+    width: '300px',
+    backgroundColor: 'white',
+    color: 'rgb(100, 100, 100)'
 }
 
 const eachPost = {
@@ -34,8 +39,32 @@ const eachPost = {
     width: '350',
 
 }
+const textBlock = {
+    opacity: '0.8'
+}
+
+const title = {
+    position : 'absolute',
+    marginTop : '20%',
+    textAlign: 'center',
+    color: 'white',
+    fontFamily : 'Aveny-T Regular',
+    fontSize : '30px',
+    fontStyle : 'extraBold',
+    width : '300px',
+    background : 'rgb(241, 241, 241 , 0.4)'
+}
+
+const link = {
+    color : 'rgb(71, 71, 71)',
+    fontWeight : 'lighter' ,
+    fontSize : '24px',
+    marginLeft: '90%',
+    marginTop : '60%'
+}
 
 class Posts extends Component {
+
 
  constructor(props){
     super(props);
