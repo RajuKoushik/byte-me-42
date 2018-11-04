@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import './css/bootstrap.min.css';
+
 import post1 from './images/post1.jpg';
 
 
 const postStyle1 = {
     position: 'absolute',
     marginLeft: '10%',
-    top:'101%',
+
+    top:'70%',
+
     height: '260px',
     width: '300px'
 }
@@ -32,41 +36,57 @@ const eachPost = {
 }
 
 class Posts extends Component {
+
+ constructor(props){
+    super(props);
+     this.state = {
+        home_page_posts : []
+    }
+ }
+
+    
+    async componentDidMount() {
+        try {
+           fetch('http://127.0.0.1:8000/blog/test').
+           then(result => {
+            return {"posts" : [{"current_user": "test", "post_name": "Dusra Post", "post_content": "FIr muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
+                                     {"current_user": "test2", "post_name": "Dusra Post k", "post_content": "FIr muje hi aana pada k", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"}]};
+                                     // return result.json();
+           }).then(data => {
+                let posts = data.posts.map(post =>{
+                    return (
+
+                        <div>
+                        <img className="card-img-top" src={post1} alt="Card image cap" /> 
+                        <div className="card-body">
+                            <h5 className="card-title">{post.post_name}</h5>
+                            <p className="card-text">{post.post_content}</p>
+                            <a onClick={this.props.onPostSelect} className="btn btn-primary">Go somewhere</a>
+                        </div>
+                        </div>
+                    )
+                })
+                 this.setState({home_page_posts: posts}); 
+           })
+           
+         
+            
+         
+        } catch (e) {
+          console.log(e);
+        }
+    }
+
     render(){
         return(
             <body>
-
-                <div className="card" style={postStyle1} >
-                    <img className="card-img-top" src={post1} alt="Card image cap" />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
-                            <a href="#" className="btn btn-primary">Go somewhere</a>
-                        </div>
+                <div className="card" style={postStyle1} >   
+                    {this.state.home_page_posts}
                 </div>
-                <div className="card" style={postStyle2} >
-                    <img className="card-img-top" src={post1} alt="Card image cap" />
-                    <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">Some quick example text to build on the card title and make up the
-                            bulk of the card's content.</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div className="card" style={postStyle3} >
-                    <img className="card-img-top" src={post1} alt="Card image cap" />
-                    <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">Some quick example text to build on the card title and make up the
-                            bulk of the card's content.</p>
-                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
             </body>
         );
     }
+
 
 }
 
