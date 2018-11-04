@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import './css/bootstrap.min.css';
 import post1 from './images/post1.jpg';
 
@@ -13,6 +12,7 @@ const postStyle1 = {
     width: '300px',
     backgroundColor: 'white',
     color: 'rgb(100, 100, 100)'
+
 }
 const postStyle2 = {
     position: 'absolute',
@@ -54,17 +54,7 @@ const title = {
     background : 'rgb(241, 241, 241 , 0.4)'
 }
 
-const link = {
-    color : 'rgb(71, 71, 71)',
-    fontWeight : 'lighter' ,
-    fontSize : '24px',
-<<<<<<< HEAD
-    marginLeft: '90%',
-    marginTop : '60%'
-}
-
 class Posts extends Component {
-
 
  constructor(props){
     super(props);

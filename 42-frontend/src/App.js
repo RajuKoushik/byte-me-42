@@ -18,11 +18,35 @@ import './components/user_profile.css';
 
 
 
-
-
 class App extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+         selectCase: 'home'
+        };  
+
+        this.selectPost = this.selectPost.bind(this);
+    }
+
+    selectPost(){
+      this.setState({selectCase:'post'});
+    }
     render(){
+      switch(this.state.selectCase){
+        case 'home' :
+            return(
+                <div >
+                   <Header />
+                   <Categories />
+                   <Companies />
+                   <Posts onPostSelect={this.selectPost} />
+                </div>
+                );
+        case 'post' :
         return(
+
             <div>
               <Branches />
               <SignUp />
@@ -38,7 +62,11 @@ class App extends Component {
               <User_profile/>
             </div>
         );
+        default:
+        return null;
+      }
     }
+    
 }
 
 export default App;
