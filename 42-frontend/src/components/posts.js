@@ -1,57 +1,72 @@
 import React, {Component} from 'react';
 import './css/bootstrap.min.css';
 import post1 from './images/post1.jpg';
+import './posts.css'
 
 
 const postStyle1 = {
     position: 'absolute',
-    marginLeft: '10%',
-    top:'101%',
-    top:'55%',
-    height: '290px',
-    width: '300px',
-    backgroundColor: 'white',
-    color: 'rgb(100, 100, 100)'
+    marginLeft: '25%',
+    marginTop: '-35%',
+    marginBottom : '25%',
+    height: '20%',
+    width: '30%',
+    backgroundColor: 'rgb(231, 231, 231)',
+    color: 'rgb(100, 100, 100)',
 
 }
-const postStyle2 = {
-    position: 'absolute',
-    marginLeft: '40%',
-    top:'101%',
-    height: '290px',
-    width: '300px',
-    backgroundColor: 'white',
-    color: 'rgb(100, 100, 100)'
-}
-const postStyle3 = {
-    position: 'absolute',
-    marginLeft: '70%',
-    top:'101%',
-    height: '290px',
-    width: '300px',
-    backgroundColor: 'white',
-    color: 'rgb(100, 100, 100)'
-}
+// const postStyle2 = {
+//     position: 'absolute',
+//     marginLeft: '40%',
+//     top:'101%',
+//     height: '290px',
+//     width: '300px',
+//     backgroundColor: 'white',
+//     color: 'rgb(100, 100, 100)'
+// }
 
-const eachPost = {
-    height: '400',
-    width: '350',
-
-}
 const textBlock = {
     opacity: '0.8'
 }
 
 const title = {
     position : 'absolute',
-    marginTop : '20%',
+    marginTop : '2%',
+    marginLeft : '-6%',
     textAlign: 'center',
-    color: 'white',
-    fontFamily : 'Aveny-T Regular',
-    fontSize : '30px',
+    height : '30%',
+    color: 'rgb(102, 100, 100)',
+    fontFamily : 'Marvel, sans-serif',
+    fontSize : '40%',
     fontStyle : 'extraBold',
-    width : '300px',
-    background : 'rgb(241, 241, 241 , 0.4)'
+    width : 'auto'
+}
+
+const content = {
+    position : 'absolute',
+    marginTop : '8%',
+    marginLeft : '-6%',
+    height : '20%',
+    color: 'rgb(102, 100, 100)',
+    fontFamily : 'Marvel, sans-serif',
+    fontSize : '35%',
+    fontStyle : 'extraBold',
+    width : 'auto'
+}
+
+const button = {
+    fontSize : '33%',
+    position : 'absolute',
+    marginTop : '5%',
+    marginLeft : '90%'
+}
+
+const img = {
+    opacity : '0.7'
+}
+
+const eachPost = {
+    marginBottom : '20%'
 }
 
 class Posts extends Component {
@@ -66,21 +81,20 @@ class Posts extends Component {
     
     async componentDidMount() {
         try {
-           fetch('http://127.0.0.1:8000/blog/test').
-           then(result => {
-            return {"posts" : [{"current_user": "test", "post_name": "Dusra Post", "post_content": "FIr muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
-                                     {"current_user": "test2", "post_name": "Dusra Post k", "post_content": "FIr muje hi aana pada k", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"}]};
-                                     // return result.json();
-           }).then(data => {
+           fetch('http://ec2-18-220-22-245.us-east-2.compute.amazonaws.com:8080/blog/all_post/').
+           then( result => {
+               return {"posts" : [{"author": "test", "title": "Dusra Post", "content": "FIr muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
+                       {"author": "test2", "title": "Dusra Post k", "content": "FIr muje hi aana pada k", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"}]};
+        }).then(data => {
                 let posts = data.posts.map(post =>{
                     return (
 
                         <div>
-                        <img className="card-img-top" src={post1} alt="Card image cap" /> 
-                        <div className="card-body">
-                            <h5 className="card-title">{post.post_name}</h5>
-                            <p className="card-text">{post.post_content}</p>
-                            <a onClick={this.props.onPostSelect} className="btn btn-primary">Go somewhere</a>
+                        <img className="card-img-top" src={post1} style = {img} alt="Card image cap" />
+                        <div className="card-body" style = {eachPost}>
+                            <h5 className="card-title" style = {title}>{post.title}</h5>
+                            <p className="card-text" style = {content}>{post.content}</p>
+                            <a onClick={this.props.onPostSelect} style = {button} > > </a>
                         </div>
                         </div>
                     )

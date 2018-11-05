@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import food1 from "./images/food1.png";
 import food2 from "./images/food2.png";
 import shopping1 from "./images/shopping.png";
@@ -22,79 +21,79 @@ import walmart from "./images/walmart.svg";
 
 
 const companyStyle1 = {
-    position: 'absolute',
+    position: 'fixed',
     top: '18%',
     right: '4%'
 };
 
 const companyStyle2 = {
-    position: 'absolute',
+    position: 'fixed',
     top: '22%',
     right: '14%'
 };
 
 const companyStyle3 = {
-    position: 'absolute',
+    position: 'fixed',
     top: '30%',
     right: '9%'
 };
 const companyStyle4 = {
-    position: 'absolute',
+    position: 'fixed',
     top: '20%',
     right: '4%'
 };
 const companyStyle5 = {
-    position: 'absolute',
+    position: 'fixed',
     top: '40%',
     right: '4%'
 };
 const companyStyle6 = {
-    position: 'absolute',
+    position: 'fixed',
     top: '50%',
     right: '10%'
 };
 const companyStyle7 = {
-    position: 'absolute',
+    position: 'fixed',
     top: '60%',
     right: '4%'
 };
 const companyStyle8= {
-    position: 'absolute',
+    position: 'fixed',
     top: '63%',
     right: '14%'
 };
 const companyStyle9= {
-    position: 'absolute',
+    position: 'fixed',
     top: '40%',
     right: '14%'
 };
 const companyStyle10= {
-    position: 'absolute',
+    position: 'fixed',
     top: '70%',
     right: '8%'
 };
 const companyStyle11= {
-    position: 'absolute',
+    position: 'fixed',
     top: '82%',
     right: '13%'
 };
 const companyStyle12= {
-    position: 'absolute',
+    position: 'fixed',
     top: '90%',
     right: '9%'
 };
 const companyStyle13= {
-    position: 'absolute',
+    position: 'fixed',
     top: '84%',
     right: '2%'
 };
 const companyStyle14= {
-    position: 'absolute',
+    position: 'fixed',
     top: '75%',
     right: '4%'
 };
 const companyStyle15= {
-    position: 'absolute',
+    position: 'fixed',
     top: '76%',
     right: '4%'
 };

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import logo from './images/42logo.png';
 import profile from './images/profile.png';
+import './homepage_header.css'
+
 
 const inputStyle = {
     justifyContent: 'center',
@@ -9,10 +11,13 @@ const inputStyle = {
     width: '400px',
     height: '46px',
     marginLeft: '30%',
-    fontFamily: '"Comic Sans MS", cursive, sans-serif',
-    fontSize: '140%',
-    background: '#EDECEC',
-    boxShadow: '6px 6px 3px #D5D5D5'
+    fontFamily: 'Marvel, sans-serif',
+    fontSize: '40%',
+    background : 'transparent',
+    boxShadow: '6px 6px 3px #D5D5D5',
+    border : '2px solid ',
+    borderColor : '#383838',
+    borderWidth : 'thin'
 };
 
 const logoStyle = {
@@ -20,6 +25,7 @@ const logoStyle = {
     width: '80px',
     marginTop: '0.1%',
     marginLeft: '2%'
+
 };
 
 const profileStyle = {
@@ -28,18 +34,12 @@ const profileStyle = {
     marginLeft: '95%'
 };
 
-var bgColors = { "Default": "#81b71a",
-                    "Blue": "#00B1E1",
-                    "Cyan": "#37BC9B",
-                    "Green": "#8CC152",
-                    "Red": "#E9573F",
-                    "Yellow": "#F6BB42",
-};
+
 class Header extends Component {
     render(){
         return (
-            <div style={{backgroundColor: bgColors.Blue}}>
-                <img  src={logo} style={logoStyle}/>
+            <div>
+                <img src={logo} style={logoStyle}/>
                 <input style={inputStyle}></input>
             </div>
         );

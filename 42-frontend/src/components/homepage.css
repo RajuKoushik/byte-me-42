@@ -1,6 +1,7 @@
 body{
-    background-color : rgb(227, 227, 227);
-
+    background: url("./images/bg.jpg") no-repeat center center fixed hsla(0, 100%, 90%, 0.1) ;
+    background-size: cover;
+    background-blend-mode: lighten;
 }
 
 img.logo{

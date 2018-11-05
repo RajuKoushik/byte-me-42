@@ -50,8 +50,10 @@ class App extends Component {
         case 'name' :
         return(
             <div>
+
                 <Header/>
                 <User_profile/>
+            <Branches onBranchSelect={this.selectBranch}/>
             </div>
         );
         default:
