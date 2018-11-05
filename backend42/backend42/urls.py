@@ -18,4 +18,14 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^auth/', include('social_django.urls', namespace='social')),
+    # <- Here
+    url(r'^home/', home, name='home'),
+    url(r'^$', RedirectView.as_view(url='home/')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^user/(?P<username>.+)', user_profile, name='user_profile'),
+    url(r'^follow/(?P<username>.+)/$', follow, name='follow'),
+
 ]
