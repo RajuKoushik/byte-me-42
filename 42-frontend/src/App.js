@@ -48,20 +48,8 @@ class App extends Component {
                 );
         case 'post' :
         return(
-
             <div>
-              <Branches />
-              <SignUp />
-              <LoginLayout />
-              <Login/>
-              <Logo/>
-              <HomepageLayout />
-              <SearchBar />
-              <Categories />
-              <Companies />
-              <Header />
-              <Posts />
-              <User_profile/>
+              <Branches onBranchSelect={this.selectBranch}/>
             </div>
         );
         default:
