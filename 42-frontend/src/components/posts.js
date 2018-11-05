@@ -94,7 +94,7 @@ class Posts extends Component {
                         <div className="card-body" style = {eachPost}>
                             <h5 className="card-title" style = {title}>{post.title}</h5>
                             <p className="card-text" style = {content}>{post.content}</p>
-                            <a onClick={this.props.onPostSelect} style = {button} > > </a>
+                            <a onClick={this.props.onBranchSelect} style = {button} > > </a>
                         </div>
                         </div>
                     )

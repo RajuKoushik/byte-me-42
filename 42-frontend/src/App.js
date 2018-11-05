@@ -29,10 +29,15 @@ class App extends Component {
         };  
 
         this.selectName = this.selectName.bind(this);
+        this.selectBranch = this.selectBranch.bind(this);
     }
 
     selectName(){
       this.setState({selectCase:'name'});
+    }
+
+    selectBranch(){
+        this.setState({selectCase:'post'});
     }
     render(){
       switch(this.state.selectCase){
@@ -43,18 +48,20 @@ class App extends Component {
                     <Categories />
                     <HomepageLayout onSelect={this.selectName}/>
                     <Companies />
-                    <Posts/>
+                    <Posts onBranchSelect={this.selectBranch}/>
                     <NewPost />
                 </div>
                 );
         case 'name' :
         return(
             <div>
-
                 <Header/>
                 <User_profile/>
-            <Branches onBranchSelect={this.selectBranch}/>
             </div>
+        );
+        case 'post' :
+        return(
+          <Branches onBranchSelect={this.selectBranch}/>
         );
         default:
         return null;
