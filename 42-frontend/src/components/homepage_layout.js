@@ -13,7 +13,7 @@ const link = {
     fontSize : '24px',
     fontFamily: '"Marvel", cursive, sans-serif',
     marginLeft: '88%',
-    marginTop : '-9%'
+    marginTop : '-7%'
 }
 
 

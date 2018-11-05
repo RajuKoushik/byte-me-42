@@ -6,6 +6,14 @@ import Followers from "./followers";
 import Followings from "./following";
 import './homepage.css';
 
+const newPost = {
+    position : 'absolute',
+    marginTop : '45%',
+    marginLeft : '16%',
+    width : '85%',
+    height : '70%'
+}
+
 class User_profile extends Component{
     render(){
         return(
@@ -15,9 +23,12 @@ class User_profile extends Component{
             <Followers/>
             <Followings/>
             <label id="posts">Posts</label>
-                <label id="posts_no">0</label>
+                <label id="posts_no">1</label>
             </form>
-            <Posts/>
+                <div style={newPost}>
+                    <Posts/>
+                </div>
+
             </body>
         );
     }

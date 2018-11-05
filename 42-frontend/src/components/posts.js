@@ -55,9 +55,9 @@ const content = {
 }
 
 const button = {
-    fontSize : '33%',
+    fontSize : '43%',
     position : 'absolute',
-    marginTop : '5%',
+    marginTop : '10%',
     marginLeft : '90%'
 }
 
