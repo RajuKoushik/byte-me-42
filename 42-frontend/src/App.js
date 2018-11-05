@@ -16,8 +16,11 @@ import Branches from "./components/branches";
 
 import User_profile from './components/user_profile';
 import './components/user_profile.css';
-
-
+import 'antd/dist/antd.css'; 
+import { BrowserRouter as Router } from 'react-router-dom';
+import { connect } from 'react-redux';
+import BaseRouter from './routes';
+import { connect } from 'react-redux';
 
 class App extends Component {
 
@@ -25,7 +28,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-         selectCase: 'home'
+         selectCase: 'login'
         };  
 
         this.selectPost = this.selectPost.bind(this);
@@ -36,6 +39,14 @@ class App extends Component {
     }
     render(){
       switch(this.state.selectCase){
+        case 'login' :
+            return(
+                <Router>
+                  <CustomLayout {...this.props}>
+                      <BaseRouter />
+                  </CustomLayout>
+                </Router>
+                );
         case 'home' :
             return(
                 <div >
@@ -70,4 +81,4 @@ class App extends Component {
     
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
