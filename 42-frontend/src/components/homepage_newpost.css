@@ -1,42 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Marvel');
+
 #title{
     position: absolute;
-    width: 36%;
+    width: 40%;
     height: 46px;
     margin-top: -60%;
-    margin-left: 25%;
+    margin-left: 20%;
     box-shadow: 6px 6px 3px #D5D5D5;
-    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-family: Marvel, sans-serif;
     font-size: 40%;
-    color: #222222;
-    border-color: #222222;
     border-width: 1px;
-    background: white;
+    background-color: rgb(255, 255, 255, 0.3) ;
 }
 
 #content{
     position: absolute;
-    width: 36%;
-    height: 100px;
+    width: 40%;
+    height: 25%;
     margin-top: -55%;
-    margin-left: 25%;
+    margin-left: 20%;
     box-shadow: 6px 6px 3px #D5D5D5;
     padding-bottom: 9%;
-    color: #222222;
-    font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 40%;
-    border-color: #222222;
+    font-family: Marvel, sans-serif;
     border-width: 1px;
-    background: white;
+    background-color: rgb(255, 255, 255, 0.3) ;
+
 }
 #post_button{
     position: absolute;
-    font: 40% "Comic Sans MS", cursive, sans-serif;
+    font-family: Marvel, sans-serif;
     width: 10%;
+    height: 5%;
+    font-size: 35%;
     text-align: center;
-    border-color: #222222;
     border-width: 1px;
-    margin-left: 51%;
-    margin-top: -25%;
-    background-color: white;
+    margin-right: 38%;
+    color : rgb(79, 78, 78);
+    margin-top: 37.4%;
+    background-color: rgb(255, 255, 255, 0.3) ;
 
 }

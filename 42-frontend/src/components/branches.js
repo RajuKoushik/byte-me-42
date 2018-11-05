@@ -8,12 +8,12 @@ const branch1 = {
     position: 'relative',
     marginTop : '2%',
     textAlign : 'center',
-    height: '20%',
+    height: '30%',
     maxWidth : '40%',
     marginLeft: '30%',
     padding : '1%',
     fontFamily: 'Marvel, sans-serif',
-    fontSize : '148%',
+    fontSize : '48%',
     color : '#565454',
     backgroundColor : 'rgb(211, 208, 208, 0.6)',
     boxShadow :'3px, 3px'
@@ -28,7 +28,7 @@ const para = {
 const title = {
     textAlign : 'center',
     fontFamily : '"Marvel", sans-serif',
-    fontSize  : '280%',
+    fontSize  : '80%',
     marginTop: '1%',
     color : '#DED6D6'
 }
@@ -44,6 +44,14 @@ const user = {
     color : 'rgb(66, 64, 64)'
 }
 
+const button = {
+    fontSize : '33%',
+    position : 'absolute',
+    marginTop : '15%',
+    marginLeft : '90%'
+}
+
+
 class Branches extends Component{
 
     constructor(props){
@@ -57,33 +65,13 @@ class Branches extends Component{
 
     async componentDidMount() {
         try {
-            fetch('http://127.0.0.1:8000/blog/test').
-                then(() => {
-                    return {
-                        "posts": [
-                            {
-                                "current_user": "akash",
-                                "post_name": "Dusra Post",
-                                "post_content": "FIr muje hi aana padaFIr muje hi aana pada FIr muje hi aana pada FIr muje hi aana pada FIr muje hi aana pada",
-                                "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba",
-                                "is_forked" : "true"
-                            },
-                            {
-                                "current_user": "trupti",
-                                "post_name": "Dusra Post k",
-                                "post_content": "FIr muje kyu aana pada k FIr muje kyu aana pada k FIr muje kyu aana pada k FIr muje kyu aana pada k FIr muje kyu aana pada k",
-                                "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba",
-                                "is_forked" : "false"
-                            },
-                            {
-                                "current_user": "Carnic",
-                                "post_name": "Dusra Post k",
-                                "post_content": "FIr muje nhi aana FIr muje nhi aana FIr muje nhi aana FIr muje nhi aana FIr muje nhi aana FIr muje nhi aana FIr muje nhi aana",
-                                "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba",
-                                "is_forked" : "true"
-                            }
-                        ]
-                    }
+            fetch('http://ec2-18-220-22-245.us-east-2.compute.amazonaws.com:8080/blog/all_post/').
+                then( result => {
+                    return {"posts" : [{"author": "test", "post_name": "First Post", "content": "FIr muje hi aana pada Ir muje hi aana pada Ir muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
+                            {"author": "test2", "post_name": "Second Post", "content": "FIr muje hi aana pada k Ir muje hi aana pada Ir muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
+                            {"author": "test3", "post_name": "Third Post", "content": "Close to the goal Ir muje hi aana pada Ir muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
+                            {"author": "test4", "post_name": "Fourth Post", "content": "FIr muje hi aana pada k Ir muje hi aana pada Ir muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"},
+                            {"author": "test5", "post_name": "Fifth Post", "content": "FIr muje hi aana pada k Ir muje hi aana pada Ir muje hi aana pada Ir muje hi aana pada Ir muje hi aana pada", "csrf": "hVm5mg3HhgBQ2s8dYRVkcB59bSmAsfAy8AHHwNTirJCsh8EZ6vefNQvvRvEK13Ba"}]};
             }).then(data => {
                     let posts = data.posts.map(post => {
                         return (
@@ -91,13 +79,13 @@ class Branches extends Component{
                             <div className="row">
                                 <div className="col-md-8" style={branch1} >
                                     <div className="row">
-                                        <div className="col-md-12">{post.post_content}
+                                        <div className="col-md-12">{post.content}
                                             <div style={para}>
                                                 <img src={arrow} height={18} width={18}/>
                                             </div>
-                                            <img src={pitch} height={32} width={28} style={imageStyle}/>
+                                            <a onClick={this.props.onBranchSelect} style = {button} > > </a>
                                             <h5 style={user}>
-                                                {post.current_user}
+                                                {post.author}
                                             </h5>
                                         </div>
                                     </div>
@@ -115,7 +103,7 @@ class Branches extends Component{
 
     render(){
         return(
-            <body>
+            <body id = "bodyStyle" >
             <h1 style={title}>WHAT DO YOU WANNA WRITE ABOUT ? </h1>
                 {this.state.branch}
             </body>
