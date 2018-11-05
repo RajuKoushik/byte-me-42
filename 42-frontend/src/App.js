@@ -28,40 +28,30 @@ class App extends Component {
          selectCase: 'home'
         };  
 
-        this.selectPost = this.selectPost.bind(this);
+        this.selectName = this.selectName.bind(this);
     }
 
-    selectPost(){
-      this.setState({selectCase:'post'});
+    selectName(){
+      this.setState({selectCase:'name'});
     }
     render(){
       switch(this.state.selectCase){
         case 'home' :
             return(
                 <div >
-                   <Header />
-                   <Categories />
-                   <Companies />
-                   <Posts onPostSelect={this.selectPost} />
+                    <Header />
+                    <Categories />
+                    <HomepageLayout onSelect={this.selectName}/>
+                    <Companies />
+                    <Posts/>
                     <NewPost />
                 </div>
                 );
-        case 'post' :
+        case 'name' :
         return(
-
             <div>
-              <Branches />
-              <SignUp />
-              <LoginLayout />
-              <Login/>
-              <Logo/>
-              <HomepageLayout />
-              <SearchBar />
-              <Categories />
-              <Companies />
-              <Header />
-              <Posts />
-              <User_profile/>
+                <Header/>
+                <User_profile/>
             </div>
         );
         default:

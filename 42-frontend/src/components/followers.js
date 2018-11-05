@@ -14,22 +14,12 @@ class Followers extends Component{
 
 
     async componentDidMount() {
-        fetch('https://www.google.com/')
+        fetch('http://ec2-18-220-22-245.us-east-2.compute.amazonaws.com:8080/blog/user/test')
             .then(result => {
-            console.log("akash")
-            return {"followers": [{"followers_count":"56"}]}
+            return result.json();
 
         }).then(data => {
-            let followers_count = data.followers.map(follower => {
-                return (
-                    <div>
-                        <label id="followers_no">{follower.followers_count}</label>
-                    </div>
-                )
-
-
-            })
-
+            let followers_count = data.followers.length;
             this.setState({user_follower_count: followers_count});
         })
 
@@ -38,7 +28,9 @@ class Followers extends Component{
         return (
             <div>
                 <label id="followers">Followers</label>
-                {this.state.user_follower_count}
+                <div>
+                    <label id="followers_no">{this.state.user_follower_count}</label>
+                </div>
             </div>
         );
     }
