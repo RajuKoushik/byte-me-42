@@ -1,10 +1,19 @@
 import React, {Component} from 'react';
 import './homepage.css';
 import Logo42 from './images/42logo.png';
-
+import './homepage_layout.css';
 
 const divStyle = {
-    backgroundColor : 'rgb(240, 240, 240)'
+    backgroundColor : '#C0C0C0'
+}
+const link = {
+    position: 'absolute',
+    color : 'rgb(71, 71, 71)',
+    fontWeight : 'lighter' ,
+    fontSize : '24px',
+    fontFamily: '"Marvel", cursive, sans-serif',
+    marginLeft: '88%',
+    marginTop : '-9%'
 }
 
 
@@ -14,8 +23,7 @@ class HomepageLayout extends Component{
         return(
             <body>
             <div>
-                <img className='logo' src = {Logo42} />
-                <h></h>
+                <a href="#" onClick={this.props.onSelect} style={link}>SAMPLE NAME</a>
             </div>
             </body>
         );

@@ -4,6 +4,7 @@ import './user_profile.css';
 import Posts from "./posts";
 import Followers from "./followers";
 import Followings from "./following";
+import './homepage.css';
 
 class User_profile extends Component{
     render(){
