@@ -1,19 +1,8 @@
 import React, {Component} from 'react';
-import './homepage.css';
-import './homepage_layout.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './user_profile.css';
 
-const link = {
-    position: 'absolute',
-    color : 'rgb(71, 71, 71)',
-    fontWeight : 'lighter' ,
-    fontSize : '24px',
-    fontFamily: '"Marvel", cursive, sans-serif',
-    textTransform: 'uppercase',
-    marginLeft: '88%',
-    marginTop : '-7%'
-}
-
-class HomepageLayout extends Component{
+class Name extends Component{
 
     constructor(props){
         super(props);
@@ -36,15 +25,14 @@ class HomepageLayout extends Component{
     }
     render(){
         return (
-            <body>
             <div>
-                <a href="#" onClick={this.props.onSelect} style={link}>{this.state.user_name}</a>
+                <label id="name">{this.state.user_name}</label>
+
             </div>
-            </body>
         );
     }
 }
 
 
 
-export default HomepageLayout;
+export default Name;

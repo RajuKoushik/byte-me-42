@@ -5,6 +5,8 @@ import Posts from "./posts";
 import Followers from "./followers";
 import Followings from "./following";
 import './homepage.css';
+import Name from "./name";
+import PostCount from "./user_post";
 
 const newPost = {
     position : 'absolute',
@@ -19,11 +21,10 @@ class User_profile extends Component{
         return(
             <body>
             <form>
-            <label id="name">Sample Name</label>
+            <Name/>
             <Followers/>
             <Followings/>
-            <label id="posts">Posts</label>
-                <label id="posts_no">1</label>
+            <PostCount/>
             </form>
                 <div style={newPost}>
                     <Posts/>

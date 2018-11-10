@@ -3,12 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './user_profile.css';
 
 
-class Followings extends Component{
+class PostCount extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            user_following_count : []
+            posts_count : []
         }
     }
 
@@ -19,17 +19,17 @@ class Followings extends Component{
                 return result.json();
 
             }).then(data => {
-            let followings_count = data.following.length;
-            this.setState({user_following_count: followings_count});
+            let post_count = data.post.length;
+            this.setState({posts_count: post_count});
         })
 
     }
     render(){
         return (
             <div>
-                <label id="following">Following</label>
+                <label id="posts">Posts</label>
                 <div>
-                    <label id="following_no">{this.state.user_following_count}</label>
+                    <label id="posts_no">{this.state.posts_count}</label>
                 </div>
             </div>
         );
@@ -38,4 +38,4 @@ class Followings extends Component{
 
 
 
-export default Followings;
+export default PostCount;
