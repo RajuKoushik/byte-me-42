@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import uuid
 
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
@@ -62,7 +59,7 @@ class Post(models.Model):
     origin_id = models.CharField(blank=True, null=True, max_length=50)
     is_draft = models.BooleanField(default=True)
     is_published = models.BooleanField(default=False)
-    title = models.CharField(max_length=200)
+    title = models. CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     content = models.TextField(max_length=420)
     seo_title = models.CharField(max_length=200)

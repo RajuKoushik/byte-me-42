@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.forms.widgets import HiddenInput
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
@@ -11,19 +12,133 @@ from rest_framework import generics, status, permissions
 from rest_framework.exceptions import ValidationError
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
+from django.db import transaction
 
 from rest_framework.views import APIView
 
 from blog.forms import PostForm, ForkPostForm
 from .models import Post, Like, Profile, Follow
-from .serializers import PostSerializer, ProfileSerializer
+from .serializers import PostSerializer, ProfileSerializer, TimelineSerializer
 from rest_framework import generics, status, permissions
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from collections import namedtuple
+from rest_framework import generics
+
+from django.contrib.auth import authenticate, login
 
 import django
 
+from rest_framework.decorators import api_view, permission_classes
+
 import json
+from rest_framework.permissions import AllowAny
+from . import models
+from django.views.decorators.http import require_http_methods
+
+
+@permission_classes([AllowAny])
+@csrf_exempt
+@api_view(['POST'])
+def my_login(request):
+    username = request.data['username']
+    password = request.data['password']
+    user = authenticate(request, username=username, password=password)
+    print(User.objects.get(username=username).id)
+
+    user_id = User.objects.get(username=username).id
+
+    if user is not None:
+        login(request, user)
+        return HttpResponse(
+            json.dumps(
+                {
+                    'message': 'Successfull login',
+                    'user_id': user_id
+                }
+            )
+        )
+    else:
+        print("Invalid login")
+        login(request, user)
+        return HttpResponse(
+            json.dumps(
+                {
+                    'message': 'not Successfull login'
+                }
+            )
+        )
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@csrf_exempt
+def post_sign_up(request):
+    with transaction.atomic():
+        user = User.objects.create_user(
+            username=request.data['username'],
+            password=request.data['password1'],
+            email=request.data['email']
+        )
+        # user.save()
+        user.first_name = request.data['first_name']
+        user.last_name = request.data['last_name']
+        user.save()
+
+        print(User.objects.get(username=request.data['username']).id)
+
+        user_id = User.objects.get(username=request.data['username']).id
+
+        get_user = User.objects.get(username=request.data['username'])
+
+        user_profile = Profile.objects.get(user=get_user)
+        user_profile.follow(user_profile)
+
+        # update
+
+        # hh
+
+    return HttpResponse(
+        json.dumps(
+            {
+                'message': 'User has been signed up.',
+                'user_id': user_id
+            }
+        )
+    )
+
+
+@require_http_methods(["POST"])
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@csrf_exempt
+def new_post_create(request):
+    if request.method == 'POST':
+        posty = models.Post()
+        user_id = request.data['user_id']
+        u = User.objects.get(id=user_id)
+        posty.author = Profile.objects.get(user=u)
+        posty.content = request.data['content']
+        posty.title = request.data['title']
+        posty.is_published = True
+        posty.slug = posty.id
+        posty.seo_description = request.data['content']
+        posty.seo_title = request.data['title']
+        posty.save()
+
+        return HttpResponse(
+            json.dumps(
+                {
+                    'message': 'New Post has been created'
+                }
+            )
+        )
+    return HttpResponse(
+        json.dumps(
+            {
+                'message': 'New Post has been created'
+            }
+        ))
 
 
 def home(request):
@@ -67,18 +182,6 @@ class homeSerializer(APIView):
         pass
 
 
-class AllPost(APIView):
-
-    def get_post(self, request):
-        profile = request.user.profile
-        all_followers = profile.get_followers()
-        all_post = Post.objects.filter(author__in=all_followers)
-        serializer = PostSerializer(all_post, many=True)
-
-        return Response(serializer.data)
-
-
-
 def user_profile(request, username):
     if User.objects.get(username=username):
         profile = Profile.objects.get(
@@ -99,28 +202,49 @@ def user_profile(request, username):
         return JsonResponse({'message': 'User not found'})
 
 
-class user_profile_serializer(APIView):
-    def get(request, username):
+class ProfileREST(APIView):
+    def get(self, request, username):
+        print('request1', request)
+        profile = Profile.objects.get(
+            user=User.objects.get(username=username))
+        serializer = ProfileSerializer(profile)
+        print(serializer)
+        return Response(serializer.data)
 
-        if User.objects.get(username=username):
-            profile = Profile.objects.get(
-                user=User.objects.get(username=username))
-            current_user = User.objects.get(username=request.user.username)
-            is_follower = False
-            followers = profile.get_followers()
-            for follower in followers:
-                if current_user.username == follower.follower.user.username:
-                    is_follower = True
-            posts = Post.objects.filter(author=profile)
-            template = 'blog/user/profile.html'
-            context = {'profile': profile,
-                       'posts': posts,
-                       'is_follower': is_follower}
-            return HttpResponse(
-                json.dumps(
-                    context
-                )
-            )
+
+class AllPost(APIView):
+    def get(self, request):
+        print('xyz')
+
+        profile = request.user.profile
+        all_followers = profile.get_following().values('following')
+        print(all_followers)
+        # get_following = all_followers.following_id
+        # print(get_following)
+        all_post = Post.objects.filter(author__in=all_followers)
+        print(all_post)
+        serializer = PostSerializer(all_post, many=True)
+
+        return Response(serializer.data)
+
+
+class HomePosts(APIView):
+    def get(self, request):
+        print('xyz')
+        # user_id = request.user_id
+        user_id = request.GET.get('user_id')
+        print(user_id)
+        u = User.objects.get(id=user_id)
+        profile = Profile.objects.get(user=u)
+        print(profile)
+        all_followers = profile.get_following().values('following')
+        print(all_followers)
+        # get_following = all_followers.following_id
+        # print(get_following)
+        all_post = Post.objects.filter(author__in=all_followers)
+        print(all_post)
+        serializer = PostSerializer(all_post, many=True)
+        return Response(serializer.data)
 
 
 @login_required
@@ -167,55 +291,50 @@ def follow(request, username):
         return JsonResponse({'message': msg})
 
 
-@login_required
-def post_view(request, post_id):
-    threads = []
-    likes = []
-    if Post.objects.filter(id=post_id):
-        all_leaf_posts = Post.objects.filter(
-            title=Post.objects.get(id=post_id).title, is_daddu=True)
-        # print(all_leaf_posts)
-        for leaf_post in all_leaf_posts:
-            thread = []
-            like_count = leaf_post.like_set.count()
-            thread.append(leaf_post)
-            while leaf_post.origin_id:
-                target_post = get_object_or_404(Post, id=leaf_post.origin_id)
-                leaf_post = target_post
-                # print(leaf_post)
-                like_count += target_post.like_set.count()
-                thread.append(target_post)
+class Post_view(APIView):
+    def get(self, request, post_id):
+        print("ENTER THE WOLFIE")
+        threads = []
+        likes = []
+        if Post.objects.filter(id=post_id):
+            all_leaf_posts = Post.objects.filter(
+                title=Post.objects.get(id=post_id).title, is_daddu=True)
+            # print(all_leaf_posts)
+            for leaf_post in all_leaf_posts:
+                thread = []
+                like_count = leaf_post.like_set.count()
+                thread.append(leaf_post)
+                while leaf_post.origin_id:
+                    target_post = get_object_or_404(Post,
+                                                    id=leaf_post.origin_id)
+                    leaf_post = target_post
+                    # print(leaf_post)
+                    like_count += target_post.like_set.count()
+                    thread.append(target_post)
 
-            threads.append(thread)
-            likes.append(like_count)
-        # print(threads, likes)
-        thread_like = zip(threads, likes)
+                threads.append(thread)
+                likes.append(like_count)
+            # print(threads, likes)
+            thread_like = zip(threads, likes)
 
-        print(thread_like)
-        thread_like = list(sorted(thread_like, key=lambda t: t[1]))[::-1]
-        print(thread_like)
-        for i in range(len(thread_like)):
-            threads[i] = thread_like[i][0]
+            print(thread_like)
+            thread_like = list(sorted(thread_like, key=lambda t: t[1]))[::-1]
+            print(thread_like)
+            for i in range(len(thread_like)):
+                threads[i] = thread_like[i][0]
 
-        # posts = []
-        target_post = Post.objects.get(id=post_id)
-        profile = User.objects.get(username=target_post.author.user.username)
-        # posts.append(target_post)
-        # while target_post.origin_id:
-        #     target_post = Post.objects.get(id=target_post.origin_id)
-        #     posts.append(target_post)
-        # thread = Post.objects.get(id=post_id)
-        # print(threads)
-        for i in range(len(threads)):
-            threads[i] = threads[i][::-1]
-        # print(threads)
-        posts = threads[0]
-        template = 'blog/post/post_page.html'
-        context = {'posts': posts,
-                   'profile': profile}
-        return render(request, template, context)
-    else:
-        return JsonResponse({'message': 'Post not found'})
+            for i in range(len(threads)):
+                threads[i] = threads[i][::-1]
+            print(threads)
+            posts = threads[0]
+            # template = 'blog/post/post_page.html'
+            # context = {'posts': posts,
+            #            'profile': profile}
+            # return render(request, template, context)
+            serializer = PostSerializer(posts, many=True)
+            return Response(serializer.data)
+        else:
+            return JsonResponse({'message': 'Post not found'})
 
 
 @login_required
