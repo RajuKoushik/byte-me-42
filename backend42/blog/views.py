@@ -58,18 +58,16 @@ def my_login(request):
         # get_following = all_followers.following_id
         # print(get_following)
         all_post = Post.objects.filter(author__in=all_followers)
-        print(all_post)
+        print(all_post.count)
         if all_post.count() > 5:
-            profile = Profile.objects.get(
-                user=User.objects.get(username=username))
-            serializer = ProfileSerializer(profile)
-            print(serializer)
-            return Response(serializer.data)
+            serializer = PostSerializer(all_post, many=True)
+            print(serializer.data)
+            return Response({'posts': serializer.data, "user_id": user_id, "username": username})
         else:
             all_posts = Post.objects.all()
             serializer = PostSerializer(all_posts, many=True)
+            return Response({'posts': serializer.data, "user_id": user_id, "username": username})
 
-            return Response(serializer.data)
     else:
         print("Invalid login")
         login(request, user)
