@@ -50,14 +50,26 @@ def my_login(request):
 
     if user is not None:
         login(request, user)
-        return HttpResponse(
-            json.dumps(
-                {
-                    'message': 'Successfull login',
-                    'user_id': user_id
-                }
-            )
-        )
+
+        profile = Profile.objects.get(user=User.objects.get(username=username))
+        print(profile)
+        all_followers = profile.get_following().values('following')
+        print(all_followers)
+        # get_following = all_followers.following_id
+        # print(get_following)
+        all_post = Post.objects.filter(author__in=all_followers)
+        print(all_post)
+        if all_post.count() > 5:
+            profile = Profile.objects.get(
+                user=User.objects.get(username=username))
+            serializer = ProfileSerializer(profile)
+            print(serializer)
+            return Response(serializer.data)
+        else:
+            all_posts = Post.objects.all()
+            serializer = PostSerializer(all_posts, many=True)
+
+            return Response(serializer.data)
     else:
         print("Invalid login")
         login(request, user)
@@ -89,10 +101,10 @@ def post_sign_up(request):
 
         user_id = User.objects.get(username=request.data['username']).id
 
-        get_user = User.objects.get(username=request.data['username'])
-
-        user_profile = Profile.objects.get(user=get_user)
-        user_profile.follow(user_profile)
+        # get_user = User.objects.get(username=request.data['username'])
+        #
+        # user_profile = Profile.objects.get(user=get_user)
+        # user_profile.follow(user_profile)
 
         # update
 
@@ -147,6 +159,19 @@ def home(request):
     template = 'home.html'
     context = {'all_posts': reversed(all_posts)}
     return render(request, template, context)
+
+
+class AnonymousHomePosts(APIView):
+    def get(self, request):
+        print('xyz')
+        all_posts = Post.objects.filter(origin_id=None)
+        context = {'all_posts': reversed(all_posts)}
+        return HttpResponse(
+            json.dumps(
+                {
+                    'all_posts': all_posts
+                }
+            ))
 
 
 # REST API
