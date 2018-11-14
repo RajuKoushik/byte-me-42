@@ -34,11 +34,12 @@ from rest_framework.decorators import api_view, permission_classes
 import json
 from rest_framework.permissions import AllowAny
 from . import models
+from django.views.decorators.http import require_http_methods
 
 
-@api_view(['POST'])
 @permission_classes([AllowAny])
 @csrf_exempt
+@api_view(['POST'])
 def my_login(request):
     username = request.data['username']
     password = request.data['password']
@@ -88,6 +89,15 @@ def post_sign_up(request):
 
         user_id = User.objects.get(username=request.data['username']).id
 
+        get_user = User.objects.get(username=request.data['username'])
+
+        user_profile = Profile.objects.get(user=get_user)
+        user_profile.follow(user_profile)
+
+        # update
+
+        # hh
+
     return HttpResponse(
         json.dumps(
             {
@@ -98,29 +108,37 @@ def post_sign_up(request):
     )
 
 
+@require_http_methods(["POST"])
 @api_view(['POST'])
 @permission_classes([AllowAny])
 @csrf_exempt
-@login_required
 def new_post_create(request):
-    posty = models.Post()
-    posty.author = request.user.profile
-    posty.content = request.data['content']
-    posty.title = request.data['title']
-    posty.is_published = True
-    posty.origin_id = request.data['origin_id']
-    posty.slug = posty.id
-    posty.seo_description = request.data['content']
-    posty.seo_title = request.data['title']
-    posty.save()
+    if request.method == 'POST':
+        posty = models.Post()
+        user_id = request.data['user_id']
+        u = User.objects.get(id=user_id)
+        posty.author = Profile.objects.get(user=u)
+        posty.content = request.data['content']
+        posty.title = request.data['title']
+        posty.is_published = True
+        posty.slug = posty.id
+        posty.seo_description = request.data['content']
+        posty.seo_title = request.data['title']
+        posty.save()
 
+        return HttpResponse(
+            json.dumps(
+                {
+                    'message': 'New Post has been created'
+                }
+            )
+        )
     return HttpResponse(
         json.dumps(
             {
                 'message': 'New Post has been created'
             }
-        )
-    )
+        ))
 
 
 def home(request):
@@ -197,6 +215,7 @@ class ProfileREST(APIView):
 class AllPost(APIView):
     def get(self, request):
         print('xyz')
+
         profile = request.user.profile
         all_followers = profile.get_following().values('following')
         print(all_followers)
@@ -206,6 +225,25 @@ class AllPost(APIView):
         print(all_post)
         serializer = PostSerializer(all_post, many=True)
 
+        return Response(serializer.data)
+
+
+class HomePosts(APIView):
+    def get(self, request):
+        print('xyz')
+        # user_id = request.user_id
+        user_id = request.GET.get('user_id')
+        print(user_id)
+        u = User.objects.get(id=user_id)
+        profile = Profile.objects.get(user=u)
+        print(profile)
+        all_followers = profile.get_following().values('following')
+        print(all_followers)
+        # get_following = all_followers.following_id
+        # print(get_following)
+        all_post = Post.objects.filter(author__in=all_followers)
+        print(all_post)
+        serializer = PostSerializer(all_post, many=True)
         return Response(serializer.data)
 
 
