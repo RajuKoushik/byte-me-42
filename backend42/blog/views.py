@@ -134,6 +134,7 @@ def new_post_create(request):
         posty.slug = posty.id
         posty.seo_description = request.data['content']
         posty.seo_title = request.data['title']
+        posty.is_latest = True
         posty.save()
 
         return HttpResponse(
@@ -253,21 +254,53 @@ class AllPost(APIView):
 
 class HomePosts(APIView):
     def get(self, request):
-        print('xyz')
-        # user_id = request.user_id
+
         user_id = request.GET.get('user_id')
         print(user_id)
         u = User.objects.get(id=user_id)
         profile = Profile.objects.get(user=u)
+        # profile = Profile.objects.get(user=User.objects.get(username=username))
         print(profile)
         all_followers = profile.get_following().values('following')
         print(all_followers)
         # get_following = all_followers.following_id
         # print(get_following)
         all_post = Post.objects.filter(author__in=all_followers)
-        print(all_post)
-        serializer = PostSerializer(all_post, many=True)
-        return Response(serializer.data)
+        print(all_post.count)
+        if all_post.count() > 5:
+            new_post = Post.objects.get(profile=profile, is_latest=True)
+            new_post_id = new_post.id
+            serializer = PostSerializer(all_post, many=True)
+            serializer_new_post = PostSerializer(new_post, many=True)
+            print(serializer.data)
+            serialized_list = serializer.data
+            final_serialized_data = serialized_list + serializer_new_post.data
+
+            post_update = Post.objects.get(id=new_post_id)
+
+            post_update.is_latest = False
+            post_update.save()
+
+            return Response({'posts': final_serialized_data, "user_id": user_id})
+        else:
+            all_posts = Post.objects.all()
+            serializer = PostSerializer(all_posts, many=True)
+            return Response({'posts': serializer.data, "user_id": user_id})
+        # print('xyz')
+        # # user_id = request.user_id
+        # user_id = request.GET.get('user_id')
+        # print(user_id)
+        # u = User.objects.get(id=user_id)
+        # profile = Profile.objects.get(user=u)
+        # print(profile)
+        # all_followers = profile.get_following().values('following')
+        # print(all_followers)
+        # # get_following = all_followers.following_id
+        # # print(get_following)
+        # all_post = Post.objects.filter(author__in=all_followers)
+        # print(all_post)
+        # serializer = PostSerializer(all_post, many=True)
+        # return Response(serializer.data)
 
 
 @login_required
