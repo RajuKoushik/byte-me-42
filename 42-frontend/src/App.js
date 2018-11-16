@@ -16,12 +16,14 @@ import Branches from "./components/branches";
 
 import User_profile from './components/user_profile';
 import './components/user_profile.css';
+
+
 import 'antd/dist/antd.css'; 
 import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import BaseRouter from './routes';
-import { connect } from 'react-redux';
-
+import CustomLayout from './containers/Layout';
+import * as actions from './store/actions/auth';
 class App extends Component {
 
     constructor(props){
@@ -35,8 +37,13 @@ class App extends Component {
     }
 
     selectPost(){
-      this.setState({selectCase:'post'});
+        this.setState({selectCase:'post'});
     }
+
+    componentDidMount() {
+        this.props.onTryAutoSignup();
+    }
+
     render(){
       switch(this.state.selectCase){
         case 'login' :
@@ -79,6 +86,18 @@ class App extends Component {
       }
     }
     
+}
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.token !== null
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

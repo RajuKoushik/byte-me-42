@@ -1,6 +1,8 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 export const authStart = () => {
     return {
         type: actionTypes.AUTH_START
@@ -40,28 +42,33 @@ export const checkAuthTimeout = expirationTime => {
 export const authLogin = (username, password) => {
     return dispatch => {
         dispatch(authStart());
-        axios.post('http://ec2-18-220-22-245.us-east-2.compute.amazonaws.com:8080/login/', {
+        axios.post('http://127.0.0.1:8000/login/', 
+        {
             username: username,
             password: password
         })
         .then(res => {
-            const token = res.data.key;
+            const token = res.data.user_id;
+            const posts = res.data.posts;
+            console.log(JSON.stringify(posts));
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
+            localStorage.setItem('posts', JSON.stringify(posts));
             dispatch(authSuccess(token));
             dispatch(checkAuthTimeout(3600));
         })
         .catch(err => {
             dispatch(authFail(err))
         })
+    
     }
 }
 
 export const authSignup = (username, email, password1, password2, firstName, lastName) => {
     return dispatch => {
         dispatch(authStart());
-        axios.post('http://ec2-18-220-22-245.us-east-2.compute.amazonaws.com:8080/signup/', {
+        axios.post('http://127.0.0.1:8000/signup/', {
             username: username,
             email: email,
             password1: password1,
@@ -70,7 +77,8 @@ export const authSignup = (username, email, password1, password2, firstName, las
             last_name: lastName
         })
         .then(res => {
-            const token = res.data.key;
+            const token = res.data.user_id;
+            console.log(res.data.user_id);
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);

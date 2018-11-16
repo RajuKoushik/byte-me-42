@@ -12,16 +12,18 @@ class RegistrationForm extends React.Component {
   };
 
   handleSubmit = (e) => {
-    e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.onAuth(
             values.userName,
             values.email,
             values.password,
-            values.confirm
+            values.confirm,
+            values.firstName,
+            values.lastName
         );
         this.props.history.push('/');
+        this.forceUpdate();
       }
     });
   }
@@ -53,7 +55,7 @@ class RegistrationForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form style={{float: 'left'}} onSubmit={this.handleSubmit}>
         
         <FormItem>
             {getFieldDecorator('userName', {
@@ -100,6 +102,22 @@ class RegistrationForm extends React.Component {
         </FormItem>
 
         <FormItem>
+            {getFieldDecorator('firstName', {
+                rules: [{ required: true, message: 'Please input your firstName!' }],
+            })(
+                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="FirstName" />
+            )}
+        </FormItem>
+
+        <FormItem>
+            {getFieldDecorator('lastName', {
+                rules: [{ required: true, message: 'Please input your lastName!' }],
+            })(
+                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="LastName" />
+            )}
+        </FormItem>
+
+        <FormItem>
         <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>
             Signup
         </Button>
@@ -126,7 +144,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (username, email, password1, password2) => dispatch(actions.authSignup(username, email, password1, password2)) 
+        onAuth: (username, email, password1, password2,firstName,lastName) => dispatch(actions.authSignup(username, email, password1, password2,firstName,lastName)) 
     }
 }
 

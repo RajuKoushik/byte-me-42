@@ -4,17 +4,18 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../store/actions/auth';
 
+
 const FormItem = Form.Item;
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 
 class NormalLoginForm extends React.Component {
   handleSubmit = (e) => {
-    e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.onAuth(values.userName, values.password);
         this.props.history.push('/');
+        this.forceUpdate();
       }
     });
   }
@@ -29,7 +30,7 @@ class NormalLoginForm extends React.Component {
 
     const { getFieldDecorator } = this.props.form;
     return (
-        <div>
+        <div >
             {errorMessage}
             {
                 this.props.loading ?
@@ -38,7 +39,7 @@ class NormalLoginForm extends React.Component {
 
                 :
 
-                <Form onSubmit={this.handleSubmit} className="login-form">
+                <Form style={{float: 'left'}} onSubmit={this.handleSubmit} className="login-form">
 
                     <FormItem>
                     {getFieldDecorator('userName', {
