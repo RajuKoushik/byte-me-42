@@ -13,12 +13,6 @@ const Articles = (props) => {
     <List
         itemLayout="vertical"
         size="large"
-        pagination={{
-        onChange: (page) => {
-            console.log(page);
-        },
-        pageSize: 3,
-        }}
         dataSource={props.data}
         renderItem={item => (
         <List.Item
@@ -28,7 +22,7 @@ const Articles = (props) => {
         >
             <List.Item.Meta
             avatar={<Avatar src={item.avatar} />}
-            title={<a href={`/${item.post_id}`}>{item.title}</a>}
+            title={<a href={`/branch/${item.id}`}>{item.title}</a>}
             description={item.author}
             />
             {item.content}
