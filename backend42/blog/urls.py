@@ -1,31 +1,25 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from django.contrib import admin
+from django.contrib.auth import views
 from django.views.generic.base import RedirectView
-from blog import views
+from django.contrib.staticfiles.storage import staticfiles_storage
+
+from blog.views import home, user_profile, follow, post_sign_up,my_login
 from django.views.decorators.csrf import csrf_exempt
 
-app_name = 'blog'
-
-favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
-    url(r'^favicon\.ico$', favicon_view),
-    url(r'^test/$', views.homeRest, name='rest'),
-    url(r'^testSerializer/$', views.homeSerializer.as_view()),
-
-    url(r'^testSerializer/$', views.homeSerializer.as_view()),
-
-    url(r'^(?P<post_id>.+)/like/(?P<username>.+)/$', views.like, name='like'),
-    url(r'^post/(?P<post_id>.+)/$', views.Post_view.as_view(),
-        name='post_view'),
-    url(r'^create/post/$', views.create_post, name='create_post'),
-    url(r'^create/newpost/$', csrf_exempt(views.create_post), name='create_post'),
-    url(r'^edit/post/(?P<post_id>.+)/$', views.post_edit, name='post_edit'),
-    url(r'^fork/post/(?P<post_id>.+)/$', views.fork, name='fork'),
-    url(r'^delete/post/(?P<post_id>.+)/$', views.post_delete,
-        name='post_delete'),
-    url(r'^all_post/$', views.AllPost.as_view()),
-    url(r'^user_home_posts/$', views.HomePosts.as_view()),
-    url(r'^user/(?P<username>.+)', views.ProfileREST.as_view(),
-        name='user_profile'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^login/$', csrf_exempt(my_login), name='login'),
+    url(r'^old_login/$', views.login, name='login'),
+    url(r'^signup/$', post_sign_up, name='signup'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^auth/', include('social_django.urls', namespace='social')),
+    # <- Here
+    url(r'^home/', home, name='home'),
+    url(r'^$', RedirectView.as_view(url='home/')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^user/(?P<username>.+)', user_profile, name='user_profile'),
+    url(r'^follow/(?P<username>.+)/$', follow, name='follow')
 
 ]
