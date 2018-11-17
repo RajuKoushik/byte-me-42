@@ -68,6 +68,7 @@ class Post(models.Model):
         Profile, related_name='post', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now=True)
     is_daddu = models.BooleanField(blank=True, default=True)
+    is_latest = models.BooleanField(blank=True, default=False)
 
     class Meta:
         ordering = ('created',)
