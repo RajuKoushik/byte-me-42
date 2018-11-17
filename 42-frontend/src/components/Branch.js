@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Card, Icon,Avatar } from 'antd';
+import { List, Card, Icon,Avatar,Button } from 'antd';
 
 const IconText = ({ type, text }) => (
   <span>
@@ -8,12 +8,14 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-const Articles = (props) => {
+const Branch = (props) => {
+	console.log("props data"+props.branchnumber);
     return (
+    <div>
     <List
         itemLayout="vertical"
         size="medium"
-        grid={{ gutter: 16, column: 2 }}
+        grid={{ gutter: 16, column: 1 }}
         dataSource={props.data}
         renderItem={item => (
         <List.Item
@@ -30,7 +32,17 @@ const Articles = (props) => {
         </List.Item>
         )}
     />
+    <List
+	    grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 1, xl: 20, xxl: 3 }}
+	    dataSource={props.branchnumber}
+	    renderItem={item => (
+	      <List.Item>
+	        <Button href={`/branch/${item.firstPostId}/${item.branchIndex}`} type="primary">{item.branchIndex}</Button>
+	      </List.Item>
+	    )}
+	 />
+    </div>
     )
 }
 
-export default Articles;
+export default Branch;
