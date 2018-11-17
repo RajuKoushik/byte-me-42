@@ -2,6 +2,21 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './user_profile.css';
 
+const following ={
+    position: 'absolute',
+    font: '40% "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    align: 'center',
+    marginLeft: '25%',
+    marginTop: '7%'
+}
+
+const following_no ={
+    position: 'absolute',
+    font: '40% "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    marginLeft: '27%',
+    marginTop: '9.5%'
+}
+
 
 class Followings extends Component{
 
@@ -23,7 +38,7 @@ class Followings extends Component{
             let following_count = data.followings.map(following => {
                 return (
                     <div>
-                        <label id="following_no">{following.following_count}</label>
+                        <label style={following_no}>{following.following_count}</label>
                     </div>
                 )
 
@@ -37,7 +52,7 @@ class Followings extends Component{
     render(){
         return (
             <div>
-                <label id="following">Following</label>
+                <label style={following}>Following</label>
                 {this.state.user_following_count}
             </div>
         );

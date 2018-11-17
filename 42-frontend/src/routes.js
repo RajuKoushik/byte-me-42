@@ -5,6 +5,7 @@ import ArticleList from './containers/ArticleListView';
 import ArticleDetail from './containers/ArticleDetailView';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
+import UserProfile from './components/user_profile';
 
 const BaseRouter = () => (
     <div>
@@ -12,6 +13,7 @@ const BaseRouter = () => (
         <Route exact path='/articles/:articleID/' component={ArticleDetail} />
         <Route exact path='/login/' component={Login} />
         <Route exact path='/signup/' component={Signup} />
+        <Route exact path='/profile/' component={UserProfile} />
     </div>
 );
 

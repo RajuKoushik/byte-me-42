@@ -7,7 +7,7 @@ const postStyle1 = {
     position: 'absolute',
     marginLeft: '10%',
     top:'101%',
-    top:'55%',
+
     height: '290px',
     width: '300px',
     backgroundColor: 'white',

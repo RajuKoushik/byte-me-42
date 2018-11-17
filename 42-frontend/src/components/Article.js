@@ -1,5 +1,7 @@
 import React from 'react';
-import { List, Avatar, Icon } from 'antd';
+import { List, Button, Icon } from 'antd';
+import axios from 'axios';
+
 
 const IconText = ({ type, text }) => (
   <span>
@@ -8,7 +10,17 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
+this.UpdateLike = () => {
+    axios.get(`127.0.0.0:8000/blog/post_id/like/userId`)
+        .then(res => {
+            this.setState({
+                likes_count: res.data
+            });
+        })
+
+}
 const Articles = (props) => {
+
     return (
     <List
         itemLayout="vertical"
@@ -23,19 +35,23 @@ const Articles = (props) => {
         renderItem={item => (
         <List.Item
             key={item.title}
-            actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
             extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
+            actions={[<Button onClick={this.UpdateLike()}><IconText type="like-o" text={item.likes_count} /></Button>]}
+
         >
             <List.Item.Meta
-            avatar={<Avatar src={item.avatar} />}
+            //avatar={<Avatar src={item.avatar} />}
             title={<a href={`/${item.post_id}`}>{item.title}</a>}
             description={item.author}
+
             />
             {item.content}
+
         </List.Item>
         )}
     />
     )
+
 }
 
 export default Articles;

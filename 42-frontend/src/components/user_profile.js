@@ -4,17 +4,18 @@ import './user_profile.css';
 import Posts from "./posts";
 import Followers from "./followers";
 import Followings from "./following";
+import UserName from './user_name';
+import PostCount from './post_count';
 
 class User_profile extends Component{
     render(){
         return(
             <body>
             <form>
-            <label id="name">Sample Name</label>
+                <UserName/>
             <Followers/>
             <Followings/>
-            <label id="posts">Posts</label>
-                <label id="posts_no">0</label>
+                <PostCount/>
             </form>
             <Posts/>
             </body>
