@@ -10,7 +10,7 @@ import UserProfile from './components/user_profile';
 const BaseRouter = () => (
     <div>
         <Route exact path='/' component={ArticleList} />
-        <Route exact path='/articles/:articleID/' component={ArticleDetail} />
+        <Route exact path='/branch/:articleID/' component={ArticleDetail} />{" "}
         <Route exact path='/login/' component={Login} />
         <Route exact path='/signup/' component={Signup} />
         <Route exact path='/profile/' component={UserProfile} />

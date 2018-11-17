@@ -16,7 +16,6 @@ class ArticleList extends React.Component {
     	//console.log("length"+this.state.articles.length);
     	const userId = localStorage.getItem('token');
     	if(localStorage.getItem('token') == null){
-    		console.log("akash");
     		axios.get(
         			'http://127.0.0.1:8000/blog/home_posts/'
         		)
@@ -36,8 +35,8 @@ class ArticleList extends React.Component {
         			}
         		)
     		.then(res => {
-    			console.log("testing"+res.data.posts_new.title)
-    			if(res.data.posts_new.title = "undefined"){
+    			console.log(res.data.posts_new.title)
+    			if(Object.getOwnPropertyNames(res.data.posts_new).length > 0){
     				this.state.streamers.push(res.data.posts_new)
     			}
     			res.data.posts.map(post =>{
@@ -46,8 +45,6 @@ class ArticleList extends React.Component {
                 this.setState({
                     articles: this.state.streamers
            		})
-           		console.log(this.state.streamers.id)
-           		console.log(this.state.articles)
     		});
     	}
        // console.log("length"+this.state.articles.length);
