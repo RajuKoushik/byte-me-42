@@ -1,0 +1,2 @@
+release: python manage.py migrate
+web: gunicorn the-42-django-react.wsgi --log-file -
