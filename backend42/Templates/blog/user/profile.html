@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+        <p class="display-4">
+            <h3>Username: {{ profile.user.username }}</h3>
+            <h3>First name: {{ profile.user.first_name }}</h3>
+            {% if profile.user.last_name %}
+                <h3>Last name: {{ profile.user.last_name }}</h3>
+            {% endif %}
+            {% if profile.user.email %}
+                <h3>E-mail: {{ profile.user.email }}</h3>
+            {% endif %}
+            {% if profile.user.last_name %}
+                <h3>Last Login: {{ profile.user.last_login }} [{{ profile.user.last_login|timesince }} ago]</h3>
+            {% endif %}
+            <h3>Join Date: {{ profile.user.date_joined }} [{{ profile.user.date_joined|timesince }} ago]</h3>
+        </p>
+
+        {% if user.is_authenticated and user != profile.user %}
+            {% if is_follower %}
+                <a href="{% url 'follow' profile.user.username %}">Unfollow</a>
+            {% else %}
+                <a href="{% url 'follow' profile.user.username %}">Follow</a>
+            {% endif %}
+        {% endif %}
+        <h2>Likes</h2>
+        {% for var in profile.get_likes %}
+            <li>
+                <a href="{% url 'blog:post_view' var.post.id %}">{{ var.post }} </a> by <a href="{% url 'user_profile' var.post.author.user.username %}"> {{ var.post.author.get_fullname }}</a>
+            </li>
+        {% endfor %}
+        <h2>Following</h2>
+        {% for var in profile.get_following %}
+            <li>
+                <a href="{% url 'user_profile' var.following.user.username %}">{{ var.following }}</a>
+            </li>
+        {% endfor %}
+        <h2>Followers</h2>
+        {% for var in profile.get_followers %}
+            <li>
+                <a href="{% url 'user_profile' var.follower.user.username %}">{{ var.follower }}</a>
+            </li>
+        {% endfor %}
+        <h2>Posts</h2>
+        {% if posts %}
+            {% if user.is_authenticated and user == profile.user %}
+                <h3>Drafts</h3>
+                {% for post in posts %}
+                    {% if post.is_published is False %}
+                        <li>
+                            <a href="{% url 'blog:post_view' post.id %}">{{ post }} </a> by <a href="{% url 'user_profile' post.author.user.username %}"> {{ post.author.get_fullname }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <h3>Published</h3>
+            {% for post in posts %}
+                {% if post.is_published %}
+                    <li>
+                        <a href="{% url 'blog:post_view' post.id %}">{{ post }} </a> by <a href="{% url 'user_profile' post.author.user.username %}"> {{ post.author.get_fullname }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h4>No posts yet. :(</h4>
+        {% endif %}
+
+{% endblock content %}

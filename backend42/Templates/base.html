@@ -1,0 +1,61 @@
+{% load staticfiles %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+        {% block title %}
+            The Forty Two
+        {% endblock %}
+    </title>
+    {% block extrahead %}
+        <link rel="shortcut icon" href="{% static 'img/favicon.ico'  %}" />
+    {% endblock %}
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		<div class="container">
+				<a class="navbar-brand" href="/">The Forty Two</a>
+		</div>
+        {% if user.is_authenticated %}
+            <div>
+                <a href="{% url 'blog:create_post' %}" class="navbar-brand">Write a post</a>
+            </div>
+
+            <div>
+                <a href="{% url 'user_profile' user.username %}" class="navbar-brand">My Profile</a>
+            </div>
+
+            {% if user.is_superuser %}
+                <div>
+                    <a href="/admin/" class="navbar-brand">Admin Panel</a>
+                </div>
+            {% endif %}
+
+           <div>
+               <a href="/logout?next=/home" class="navbar-brand" href="/">Logout</a>
+           </div>
+
+        {% else %}
+            <div>
+               <a href="{% url 'login' %}" class="navbar-brand" href="/">Log in</a>
+           </div>
+        {% endif %}
+	</nav>
+    <div class="container">
+	    {% block content %}
+	    {% endblock content %}
+    </div>
+</body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+    {% block script %}
+    {% endblock script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link href="https://fontsstatic.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</html>
+
