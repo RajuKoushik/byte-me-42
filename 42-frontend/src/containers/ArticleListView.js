@@ -6,7 +6,8 @@ import CustomForm from '../components/Form';
 class ArticleList extends React.Component {
 
     state = {
-        articles: []
+        articles: [],
+        streamers:[]
     }
 
     componentDidMount() {
@@ -17,16 +18,17 @@ class ArticleList extends React.Component {
     	if(localStorage.getItem('token') == null){
     		console.log("akash");
     		axios.get(
-        			'http://127.0.0.1:8000/blog/home_posts/?'
+        			'http://127.0.0.1:8000/blog/home_posts/'
         		)
             .then(res => {
             	this.setState({
                     articles: res.data
            		})
+           		console.log(this.state.articles)
     		});
     	}else{
     		axios.get(
-        			'http://127.0.0.1:8000/blog/user_home_posts/?',
+        			'http://127.0.0.1:8000/blog/user_home_posts/',
         			{
         				params:{
         					user_id : userId
@@ -34,9 +36,18 @@ class ArticleList extends React.Component {
         			}
         		)
     		.then(res => {
-            	this.setState({
-                    articles: res.data
+    			console.log("testing"+res.data.posts_new.title)
+    			if(res.data.posts_new.title = "undefined"){
+    				this.state.streamers.push(res.data.posts_new)
+    			}
+    			res.data.posts.map(post =>{
+                   this.state.streamers.push(post)
+                })
+                this.setState({
+                    articles: this.state.streamers
            		})
+           		console.log(this.state.streamers.id)
+           		console.log(this.state.articles)
     		});
     	}
        // console.log("length"+this.state.articles.length);
