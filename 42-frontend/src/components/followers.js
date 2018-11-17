@@ -2,6 +2,20 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './user_profile.css';
 
+const followers ={
+    position: 'absolute',
+    font: '40% "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    marginLeft: '10%',
+    marginTop: '7%'
+}
+
+const followers_no ={
+    position: 'absolute',
+    font: '40% "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    marginLeft: '12%',
+    marginTop: '9.5%'
+}
+
 
 class Followers extends Component{
 
@@ -14,7 +28,7 @@ class Followers extends Component{
 
 
     async componentDidMount() {
-        fetch('https://www.google.com/')
+        fetch('http://127.0.0.1:8000')
             .then(result => {
             console.log("akash")
             return {"followers": [{"followers_count":"56"}]}
@@ -23,7 +37,7 @@ class Followers extends Component{
             let followers_count = data.followers.map(follower => {
                 return (
                     <div>
-                        <label id="followers_no">{follower.followers_count}</label>
+                        <label style={followers_no}>{follower.followers_count}</label>
                     </div>
                 )
 
@@ -37,7 +51,7 @@ class Followers extends Component{
     render(){
         return (
             <div>
-                <label id="followers">Followers</label>
+                <label style={followers}>Followers</label>
                 {this.state.user_follower_count}
             </div>
         );
