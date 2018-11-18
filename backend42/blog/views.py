@@ -13,6 +13,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from django.db import transaction
+from django.core import serializers
 
 from rest_framework.views import APIView
 
@@ -24,6 +25,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from collections import namedtuple
 from rest_framework import generics
+from random import randint
 
 from django.contrib.auth import authenticate, login
 
@@ -35,6 +37,7 @@ import json
 from rest_framework.permissions import AllowAny
 from . import models
 from django.views.decorators.http import require_http_methods
+
 
 
 @permission_classes([AllowAny])
@@ -314,6 +317,56 @@ def follow(request, username):
         return JsonResponse({'message': msg})
 
 
+post_view(request, post_id):
+    threads = []
+    likes = []
+    if Post.objects.filter(id=post_id):
+        all_leaf_posts = Post.objects.filter(
+            title=Post.objects.get(id=post_id).title, is_daddu=True)
+        # print(all_leaf_posts)
+        for leaf_post in all_leaf_posts:
+            thread = []
+            like_count = leaf_post.like_set.count()
+            thread.append(leaf_post)
+            while leaf_post.origin_id:
+                target_post = get_object_or_404(Post, id=leaf_post.origin_id)
+                leaf_post = target_post
+                # print(leaf_post)
+                like_count += target_post.like_set.count()
+                thread.append(target_post)
+
+            threads.append(thread)
+            likes.append(like_count)
+        # print(threads, likes)
+        thread_like = zip(threads, likes)
+
+        print(thread_like)
+        thread_like = list(sorted(thread_like, key=lambda t: t[1]))[::-1]
+        print(thread_like)
+        for i in range(len(thread_like)):
+            threads[i] = thread_like[i][0]
+
+        # posts = []
+        target_post = Post.objects.get(id=post_id)
+        profile = User.objects.get(username=target_post.author.user.username)
+        # posts.append(target_post)
+        # while target_post.origin_id:
+        #     target_post = Post.objects.get(id=target_post.origin_id)
+        #     posts.append(target_post)
+        # thread = Post.objects.get(id=post_id)
+        # print(threads)
+        for i in range(len(threads)):
+            threads[i] = threads[i][::-1]
+        # print(threads)
+        posts = threads[0]
+        template = 'blog/post/post_page.html'
+        context = {'posts': posts,
+                   'profile': profile}
+        return render(request, template, context)
+    else:
+        return JsonResponse({'message': 'Post not found'})
+
+
 class Post_view(APIView):
     def get(self, request, post_id):
         print("ENTER THE WOLFIE")
@@ -355,10 +408,10 @@ class Post_view(APIView):
             #            'profile': profile}
             # return render(request, template, context)
             serializer = PostSerializer(posts, many=True)
-            return Response(serializer.data)
+            return Response({'posts': serializer.data, "branch_count": len(threads)})
+            # return Response(serializer.data)
         else:
             return JsonResponse({'message': 'Post not found'})
-
 
 @login_required
 def create_post(request):
