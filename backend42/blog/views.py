@@ -433,6 +433,51 @@ def create_post(request):
         form = PostForm()
     return render(request, 'blog/post/create_post.html', {'form': form})
 
+class branch_view(APIView):
+    def get(self, request, post_id, branch_id):
+        print("ENTER THE WOLFIE")
+        threads = []
+        likes = []
+        if Post.objects.filter(id=post_id):
+            all_leaf_posts = Post.objects.filter(
+                title=Post.objects.get(id=post_id).title, is_daddu=True)
+            # print(all_leaf_posts)
+            for leaf_post in all_leaf_posts:
+                thread = []
+                like_count = leaf_post.like_set.count()
+                thread.append(leaf_post)
+                while leaf_post.origin_id:
+                    target_post = get_object_or_404(Post,
+                                                    id=leaf_post.origin_id)
+                    leaf_post = target_post
+                    # print(leaf_post)
+                    like_count += target_post.like_set.count()
+                    thread.append(target_post)
+
+                threads.append(thread)
+                likes.append(like_count)
+            # print(threads, likes)
+            thread_like = zip(threads, likes)
+
+            print(thread_like)
+            thread_like = list(sorted(thread_like, key=lambda t: t[1]))[::-1]
+            print(thread_like)
+            for i in range(len(thread_like)):
+                threads[i] = thread_like[i][0]
+
+            for i in range(len(threads)):
+                threads[i] = threads[i][::-1]
+            print(threads)
+            posts = threads[int(branch_id)]
+            # template = 'blog/post/post_page.html'
+            # context = {'posts': posts,
+            #            'profile': profile}
+            # return render(request, template, context)
+            serializer = PostSerializer(posts, many=True)
+            return Response({'posts': serializer.data, "branch_count": len(thread)})
+        else:
+            return JsonResponse({'message': 'Post not found'})
+
 
 @login_required
 def post_edit(request, post_id):
