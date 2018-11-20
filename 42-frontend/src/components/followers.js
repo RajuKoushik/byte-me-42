@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './user_profile.css';
+import {List} from "antd/lib/list";
+import {Button} from "antd";
 
 const followers ={
     position: 'absolute',
@@ -17,46 +19,26 @@ const followers_no ={
 }
 
 
-class Followers extends Component{
+const Followers = (props) => {
+    return (
+        <List
+            itemLayout="vertical"
+            size="large"
+            dataSource={props.data}
+            renderItem={item => (
+                <List.Item
+                    key={item.followers.length}
+                >
+                    <List.Item.Meta/>
 
-    constructor(props){
-        super(props);
-        this.state = {
-            user_follower_count : []
-        }
-    }
+                </List.Item>
+            )}
+        />
+    )
 
-
-    async componentDidMount() {
-        fetch('http://127.0.0.1:8000')
-            .then(result => {
-            console.log("akash")
-            return {"followers": [{"followers_count":"56"}]}
-
-        }).then(data => {
-            let followers_count = data.followers.map(follower => {
-                return (
-                    <div>
-                        <label style={followers_no}>{follower.followers_count}</label>
-                    </div>
-                )
+       }
 
 
-            })
-
-            this.setState({user_follower_count: followers_count});
-        })
-
-    }
-    render(){
-        return (
-            <div>
-                <label style={followers}>Followers</label>
-                {this.state.user_follower_count}
-            </div>
-        );
-    }
-}
 
 
 

@@ -13,19 +13,6 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-function updateSomething(post_id){
-    console.log("like called")
-    const userName = localStorage.getItem('userName', userName);
-    console.log(post_id)
-    console.log(userName)
-    axios.get(`127.0.0.0:8000/blog/post_id/like/${userName}`)
-        .then(res => {
-            this.setState({
-                likes_count: res.data
-            });
-        })
-
-}
 const Articles = (props) => {
 
 

@@ -11,12 +11,12 @@ class User_profile extends Component{
     render(){
         return(
             <body>
-            <form>
+
                 <UserName/>
             <Followers/>
             <Followings/>
                 <PostCount/>
-            </form>
+
             <Posts/>
             </body>
         );
