@@ -441,6 +441,18 @@ class branch_view(APIView):
             return Response({'posts': serializer.data, "branch_count": len(threads)})
         else:
             return JsonResponse({'message': 'Post not found'})
+        
+class category_view(APIView):
+    def get(self, request, category):
+        print("ENTER THE WOLFIE")
+        threads = []
+        print(category)
+        posty = Post.objects.filter(category=category, origin_id=None)
+        print(posty)
+        serializer = PostSerializer(posty, many=True)
+
+        return Response(serializer.data)
+        
 
      
 @login_required
