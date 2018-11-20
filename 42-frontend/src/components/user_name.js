@@ -1,46 +1,20 @@
-import React, {Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './user_profile.css';
+import React from 'react';
 
-const name_style = {
-    position: 'absolute',
-    font: '190% "Lucida Sans Unicode", "Lucida Grande", sans-serif',
-    align: 'center',
-    marginTop: '0',
-    marginLeft: '-17%'
-}
+import { Row, Col } from 'antd';
 
-class Name extends Component{
+const User_name = (props) => {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            user_name : []
-        }
-    }
+    return (
 
+        <Row dataSource={props.data}>
 
-    async componentDidMount() {
-        fetch('http://ec2-18-220-22-245.us-east-2.compute.amazonaws.com:8080/blog/user/test')
-            .then(result => {
-                return result.json();
+            <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>{props.data}</Col>
 
-            }).then(data => {
-            let users_name = data.user;
-            this.setState({user_name: users_name});
-        })
+        </Row>
 
-    }
-    render(){
-        return (
-            <div>
-                <label style={name_style}>{this.state.user_name}</label>
+    )
 
-            </div>
-        );
-    }
 }
 
 
-
-export default Name;
+export default User_name;

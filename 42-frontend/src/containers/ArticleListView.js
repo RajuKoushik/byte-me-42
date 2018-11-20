@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Articles from '../components/Article';
 import CustomForm from '../components/Form';
-
+import Categories from '../components/Categories'
 class ArticleList extends React.Component {
 
     state = {
@@ -35,8 +35,8 @@ class ArticleList extends React.Component {
         			}
         		)
     		.then(res => {
-    			console.log(res.data.posts_new.title)
-    			if(Object.getOwnPropertyNames(res.data.posts_new).length > 0){
+    			if(res.data.posts_new != null && Object.getOwnPropertyNames(res.data.posts_new).length > 0){
+
     				this.state.streamers.push(res.data.posts_new)
     			}
     			res.data.posts.map(post =>{
@@ -54,12 +54,16 @@ class ArticleList extends React.Component {
     	if(localStorage.getItem('token') == null){
     		return (
 	            <div>
+	            	<Categories/>
+	            	<br />
 	                <Articles data={this.state.articles} />
 	            </div>
 	        )
     	}else{
     		return (
 	            <div>
+	            	<Categories/>
+	            	<br />
 	                <Articles data={this.state.articles} />
 	                <br />
 	                <h2>Create an article</h2>

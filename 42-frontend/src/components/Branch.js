@@ -8,12 +8,15 @@ import * as ReactDOM from "antd";
 
 const { Option } = Select;
 
+import axios from 'axios';
+
 const IconText = ({ type, text }) => (
     <span>
     <Icon type={type} style={{ marginRight: 8 }} />
         {text}
   </span>
 );
+
 
 const buttonStyle = {
     opacity : '0.4',
@@ -168,7 +171,15 @@ class Branch extends React.Component {
                     )}
 
                 />
-
+                <List
+                  grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 1, xl: 20, xxl: 3 }}
+                  dataSource={props.branchnumber}
+                  renderItem={item => (
+                    <List.Item>
+                      <Button href={`/branch/${item.firstPostId}/${item.branchIndex}`} type="primary">{item.branchIndex}</Button>
+                    </List.Item>
+                  )}
+               />
 
             </div>
 
@@ -177,10 +188,6 @@ class Branch extends React.Component {
 
         );
     }
-}
 
-const App = Form.create()(Branch);
 
-//ReactDOM.render(<App />, mountNode);
-
-export default App;
+export default Branch;

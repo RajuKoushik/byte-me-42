@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Row, Col } from 'antd';
 
-const PostCount = (props) => {
+const Followings = (props) => {
 
     return (
 
@@ -17,4 +17,4 @@ const PostCount = (props) => {
 }
 
 
-export default PostCount;
+export default Followings;

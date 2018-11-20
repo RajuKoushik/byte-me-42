@@ -1,9 +1,31 @@
 import React from 'react';
 import { Form,Input, Button } from 'antd';
+import { Menu, Dropdown, Icon, message } from 'antd';
 import { connect } from "react-redux";
 import axios from 'axios';
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
+const menu_style = {
+    position: 'absolute',
+    marginLeft: '30%',
+    marginTop: '19%',
+    color: '#222222',
+    font: '120% "Lucida Sans Unicode", "Lucida Grande", sans-serif'
+}
+
+const onClick = function ({ key }) {
+    message.info(`Click on item ${key}`);
+};
+
+const menu = (
+    <Menu onClick={onClick}>
+        <Menu.Item key="1">@amazon</Menu.Item>
+        <Menu.Item key="2">@nike</Menu.Item>
+        <Menu.Item key="3">@uber</Menu.Item>
+    </Menu>
+);
+
 
 const FormItem = Form.Item;
 
@@ -56,7 +78,6 @@ class CustomForm extends React.Component {
                 <Button type="primary" htmlType="submit">{this.props.btnText}</Button>
             </FormItem>
             </Form>
-        
         );
     }
 }
