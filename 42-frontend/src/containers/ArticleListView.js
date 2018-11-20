@@ -35,8 +35,8 @@ class ArticleList extends React.Component {
         			}
         		)
     		.then(res => {
-    			console.log(res.data.posts_new.title)
-    			if(Object.getOwnPropertyNames(res.data.posts_new).length > 0){
+    			if(res.data.posts_new != null && Object.getOwnPropertyNames(res.data.posts_new).length > 0){
+
     				this.state.streamers.push(res.data.posts_new)
     			}
     			res.data.posts.map(post =>{

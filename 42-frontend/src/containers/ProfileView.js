@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card } from 'antd';
 import { connect } from "react-redux";
 import CustomForm from '../components/Form';
@@ -79,7 +80,9 @@ class ProfileView extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`http://127.0.0.1:8000/blog/user/koushik`)
+        const userName = localStorage.getItem('userName');
+
+        axios.get(`http://127.0.0.1:8000/blog/user/${userName}`)
             .then(res => {
                 console.log(res.data)
                 this.setState({
@@ -89,8 +92,7 @@ class ProfileView extends React.Component {
                     post:res.data.post
 
                 });
-                console.log(this.state.following)
-
+                console.log(userName)
             })
     }
 
