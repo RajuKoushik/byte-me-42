@@ -31,8 +31,12 @@ const postStyle = {
 class Branch extends React.Component {
     state = { visible: false };
 
+
     constructor (props){
         super(props)
+        this.state = {
+            text : {}
+        }
     }
 
     state = {
@@ -61,11 +65,19 @@ class Branch extends React.Component {
         });
     };
 
-    handleFormSubmit = (event, origin_id) => {
+    handleContentChange = (event) => {
+        this.setState({text: event.target.value});
+    }
+
+
+    handleFormSubmit = (event, id) => {
+        console.log(this.state.text);
+        console.log(id);
         //const title = event.target.elements.title.value;
-        const content = event.target.elements.content.value;
+        //const content = event.target.elements.content.value;
         //const user_id = localStorage.getItem('token');
-        console.log(content);
+        //console.log(content);
+        this.onClose();
     }
 
     render() {
@@ -86,7 +98,7 @@ class Branch extends React.Component {
                             <List.Item.Meta
                                 avatar={<Avatar src={item.avatar}/>}
                                 //title={<a href={`/branch/${item.id}`}>{item.title}</a>}
-                                description={item.author}
+                                description={item.user_id}
                             />
 
                             <div>
@@ -106,9 +118,7 @@ class Branch extends React.Component {
                                         paddingBottom: 53,
                                     }}
                                 >
-                                    <Form layout="vertical" hideRequiredMark onSubmit={(event) => this.handleFormSubmit(
-                                        event,
-                                        item.id)}>
+                                    <Form layout="vertical" hideRequiredMark>
                                         <Row gutter={16} style={postStyle}>
                                             <Col span={24}>
                                                 <Form.Item label="content" >
@@ -120,7 +130,7 @@ class Branch extends React.Component {
                                                                     message: 'please enter your content',
                                                                 },
                                                             ],
-                                                        })(<Input.TextArea name="content" rows={4} placeholder="please enter your content" />)}
+                                                        })(<Input.TextArea name="content" rows={4} placeholder="please enter your content" value={this.state.text} onChange = {this.handleContentChange}/>)}
                                                 </Form.Item>
                                             </Col>
                                         </Row>
@@ -146,7 +156,9 @@ class Branch extends React.Component {
                                         >
                                             Cancel
                                         </Button>
-                                        <Button onClick={this.onClose} type="primary">Submit</Button>
+                                        <Button htmlType="submit" onClick={(event) => this.handleFormSubmit(
+                                            event,
+                                            item.id)} type="primary">Submit</Button>
                                     </div>
                                 </Drawer>
                             </div>
