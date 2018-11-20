@@ -268,6 +268,42 @@ class HomePosts(APIView):
         print(all_post)
         serializer = PostSerializer(all_post, many=True)
         return Response(serializer.data)
+    
+@require_http_methods(["POST"])
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@csrf_exempt
+def fork_list(request):
+    if request.method == "POST":
+        post_list = models.Post()
+        user_id = request.data['user_id']
+        u = User.objects.get(id=user_id)
+        post_list.author = Profile.objects.get(user=u)
+        post_list.content = request.data['content']
+        post_list.title = request.data['title']
+        post_list.is_published = True
+        post_list.slug = post_list.id
+        post_list.seo_description = request.data['content']
+        post_list.seo_title = request.data['title']
+        post_list.is_latest = True
+        post_list.origin_id = request.data["origin_id"]
+        post_list.save()
+        temp_post = post_list
+        branch = []
+        branch.append(post_list)
+        print(post_list.origin_id)
+        while temp_post.origin_id != None:
+            temp_post = get_object_or_404(Post, id=temp_post.origin_id)
+            branch.append(temp_post)
+            print(temp_post)
+        branches = reversed(branch)
+
+        print(branches)
+        serializer = PostSerializer(branches, many=True)
+        return Response(serializer.data)
+    else:
+        return JsonResponse({'message': 'Post not found'})
+    
 
 
 @login_required
