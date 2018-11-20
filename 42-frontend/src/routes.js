@@ -12,6 +12,7 @@ const BaseRouter = () => (
         <Route exact path='/' component={ArticleList} />
         <Route exact path='/branch/:articleID/' component={ArticleDetail} />
         <Route exact path='/branch/:articleID/:branchID' component={ArticleDetail} />
+        <Route exact path='/category/:categoryID' component={ArticleDetail} />
         <Route exact path='/login/' component={Login} />
         <Route exact path='/signup/' component={Signup} />
         <Route exact path='/profile/' component={UserProfile} />

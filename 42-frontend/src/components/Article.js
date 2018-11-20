@@ -13,8 +13,12 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-this.UpdateLike = () => {
-    axios.get(`127.0.0.0:8000/blog/post_id/like/userId`)
+function updateSomething(post_id){
+    console.log("like called")
+    const userName = localStorage.getItem('userName', userName);
+    console.log(post_id)
+    console.log(userName)
+    axios.get(`127.0.0.0:8000/blog/post_id/like/${userName}`)
         .then(res => {
             this.setState({
                 likes_count: res.data
@@ -23,6 +27,8 @@ this.UpdateLike = () => {
 
 }
 const Articles = (props) => {
+
+
 
     return (
     <List
@@ -33,18 +39,16 @@ const Articles = (props) => {
         renderItem={item => (
         <List.Item
             key={item.title}
-            extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
-            actions={[<Button onClick={this.UpdateLike()}><IconText type="like-o" text={item.likes_count} /></Button>]}
+            extra={<img width={272} alt="logo" src="https://nonprofitorgs.files.wordpress.com/2010/07/blog.jpg" />}
 
         >
             <List.Item.Meta
-            avatar={<Avatar src={item.avatar} />}
+            avatar={<Avatar src="http://www.sticomputer.com/newwebsite/wp-content/uploads/2018/03/Blog-Post-Icon-Navy-Blue-100x100.jpg" />}
             title={<a href={`/branch/${item.id}`}>{item.title}</a>}
             description={item.author}
 
             />
             {item.content}
-
         </List.Item>
         )}
     />
