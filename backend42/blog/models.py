@@ -69,6 +69,9 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now=True)
     is_daddu = models.BooleanField(blank=True, default=True)
     is_latest = models.BooleanField(blank=True, default=False)
+    category = models.CharField(max_length=200,blank=True,null=True)
+    image_url=models.CharField(max_length=2000,blank=True, null=True)
+
 
     class Meta:
         ordering = ('created',)
