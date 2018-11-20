@@ -35,7 +35,7 @@ class CustomForm extends React.Component {
         const title = event.target.elements.title.value;
         const content = event.target.elements.content.value;
         const user_id = localStorage.getItem('token');
-        switch (requestType) {
+       switch (requestType) {
             case 'post':
                 return axios.post('http://127.0.0.1:8000/blog/create/newpost/', {
                     title: title,
@@ -51,7 +51,7 @@ class CustomForm extends React.Component {
                 })
                 .then(res => console.log(res))
                 .catch(error => console.err(error));
-            default : 
+            default :
             	return axios.post('http://127.0.0.1:8000/api/', {
                     title: title,
                     content: content
