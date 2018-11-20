@@ -3,24 +3,72 @@ import axios from 'axios';
 import { Button, Card } from 'antd';
 import { connect } from "react-redux";
 import CustomForm from '../components/Form';
-import Articles from '../components/Article';
+import Branch from '../components/Branch';
 import { List } from 'antd';
 class ArticleDetail extends React.Component {
 
     state = {
-        articles: []
+        articles: [],
+        branchCount:[],
+        branchTest:[]
     }
 
     componentDidMount() {
         const articleID = this.props.match.params.articleID;
-        axios.get(`http://127.0.0.1:8000/blog/post/${articleID}`)
+        const branchID = this.props.match.params.branchID;
+        const categoryID = this.props.match.params.categoryID;
+        if(typeof branchID !== "undefined"){
+            console.log("branchID"+branchID)
+             axios.get(`https://byte-me-backend.herokuapp.com/blog/post/${articleID}/${branchID}`)
+            .then(res => {
+                console.log("branch wala"+res.data)
+                this.setState({
+                    articles: res.data.posts
+                });
+                for (var i = 1; i < res.data.branch_count; i++) {
+                     var postNumberObject = {branchIndex : i, firstPostId:this.state.articles[0].id};
+                    this.state.branchTest.push(postNumberObject);
+                } 
+                this.setState({
+                    branchCount: this.state.branchTest
+                });
+                console.log("branch count"+this.state.branchCount)
+            })
+        }else if(typeof categoryID !== "undefined"){
+             axios.get(`http://127.0.0.1:8000/blog/category/${categoryID}`)
             .then(res => {
                 console.log(res.data)
                 this.setState({
                     articles: res.data.posts
                 });
-                console.log(this.state.articles)
+                for (var i = 1; i < res.data.branch_count; i++) {
+                     var postNumberObject = {branchIndex : i, firstPostId:this.state.articles[0].id};
+                    this.state.branchTest.push(postNumberObject);
+                } 
+                this.setState({
+                    branchCount: this.state.branchTest
+                });
+                console.log("branch count"+this.state.branchCount)
             })
+        }else{
+            axios.get(`http://127.0.0.1:8000/blog/post/${articleID}`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    articles: res.data.posts
+                });
+                for (var i = 1; i < res.data.branch_count; i++) {
+                     var postNumberObject = {branchIndex : i, firstPostId:this.state.articles[0].id};
+                    this.state.branchTest.push(postNumberObject);
+                } 
+                this.setState({
+                    branchCount: this.state.branchTest
+                });
+                console.log("branch count"+this.state.branchCount)
+            })
+        }
+        
+       
     }
 
     handleDelete = (event) => {
@@ -33,7 +81,7 @@ class ArticleDetail extends React.Component {
     render() {
         return (
             <div>
-                <Articles data={this.state.articles} /> 
+                <Branch data={this.state.articles} branchnumber={this.state.branchCount} /> 
             </div>
         )
     }

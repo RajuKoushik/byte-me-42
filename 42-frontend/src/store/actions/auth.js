@@ -51,7 +51,6 @@ export const authLogin = (username, password) => {
             const token = res.data.user_id;
             const posts = res.data.posts;
             const userName  = res.data.username;
-            console.log(JSON.stringify(posts));
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);
             localStorage.setItem('userName', userName);

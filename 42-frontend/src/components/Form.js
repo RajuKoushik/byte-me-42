@@ -63,8 +63,8 @@ class CustomForm extends React.Component {
 
     render() {
         return (
-        <div style={{float: 'left'}}>
-            <Form onSubmit={(event) => this.handleFormSubmit(
+        
+            <Form style={{float: 'left'}} onSubmit={(event) => this.handleFormSubmit(
                 event,
                 this.props.requestType,
                 this.props.articleID )}>
@@ -78,14 +78,6 @@ class CustomForm extends React.Component {
                 <Button type="primary" htmlType="submit">{this.props.btnText}</Button>
             </FormItem>
             </Form>
-            <div style={menu_style}>
-            <Dropdown overlay={menu} >
-                <a className="ant-dropdown-link" href="#">
-                    Company Tags <Icon type="down" />
-                </a>
-            </Dropdown>
-            </div>
-        </div>
         );
     }
 }

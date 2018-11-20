@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Articles from '../components/Article';
 import CustomForm from '../components/Form';
-
+import Categories from '../components/Categories'
 class ArticleList extends React.Component {
 
     state = {
@@ -54,12 +54,16 @@ class ArticleList extends React.Component {
     	if(localStorage.getItem('token') == null){
     		return (
 	            <div>
+	            	<Categories/>
+	            	<br />
 	                <Articles data={this.state.articles} />
 	            </div>
 	        )
     	}else{
     		return (
 	            <div>
+	            	<Categories/>
+	            	<br />
 	                <Articles data={this.state.articles} />
 	                <br />
 	                <h2>Create an article</h2>
