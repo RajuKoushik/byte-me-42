@@ -30,7 +30,7 @@ const Articles = (props) => {
             <List.Item
                 key={item.title}
                 style={{ background: '#ECECEC', padding: '20px',alignItems: 'center', font: '100% "Lucida Sans Unicode", "Lucida Grande", sans-serif',}}
-                extra={<img width={272} alt="logo" src="https://nonprofitorgs.files.wordpress.com/2010/07/blog.jpg" />}
+                extra={<img width={272} alt="logo" src={item.image_url} />}
 
             >
                 <List.Item.Meta

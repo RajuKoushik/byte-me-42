@@ -82,7 +82,7 @@ class ProfileView extends React.Component {
     componentDidMount() {
         const userName = localStorage.getItem('userName');
 
-        axios.get(`http://127.0.0.1:8000/blog/user/${userName}`)
+        axios.get(`https://byte-me-backend.herokuapp.com/blog/user/${userName}`)
             .then(res => {
                 console.log(res.data)
                 this.setState({

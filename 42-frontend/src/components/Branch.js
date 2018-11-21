@@ -44,7 +44,8 @@ class Branch extends React.Component {
     constructor (props){
         super(props)
         this.state = {
-            text : {}
+            text : {},
+            id :{}
         }
     }
 
@@ -78,7 +79,10 @@ class Branch extends React.Component {
         this.setState({text: event.target.value});
     }
 
-
+    setItemId = (event,itemId) => {
+        this.setState({id : itemId});
+        this.showDrawer();
+    }
     handleFormSubmit = (event, id,titleId) => {
         console.log(titleId);
         console.log(id);
@@ -87,7 +91,8 @@ class Branch extends React.Component {
         const content = this.state.text;
         const user_id = localStorage.getItem('token');
         this.onClose();
-        return axios.post('http://127.0.0.1:8000/blog/fork/post/', {
+        console.log(origin_id);
+        return axios.post('https://byte-me-backend.herokuapp.com/blog/fork/post/', {
                     origin_id: origin_id,
                     title: title,
                     content : content,
@@ -120,7 +125,7 @@ class Branch extends React.Component {
                             />
 
                             <div>
-                                <Button type="primary" style = {buttonStyle} onClick={this.showDrawer}>
+                                <Button type="primary" style = {buttonStyle} onClick={(event) => this.setItemId(event,item.id)}>
                                     >
                                 </Button>
                                 <Drawer
@@ -176,7 +181,7 @@ class Branch extends React.Component {
                                         </Button>
                                         <Button htmlType="submit" onClick={(event) => this.handleFormSubmit(
                                             event,
-                                            item.id,item.title)} type="primary">Submit</Button>
+                                            this.state.id,item.title)} type="primary">Submit</Button>
                                     </div>
                                 </Drawer>
                             </div>

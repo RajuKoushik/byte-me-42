@@ -42,7 +42,7 @@ export const checkAuthTimeout = expirationTime => {
 export const authLogin = (username, password) => {
     return dispatch => {
         dispatch(authStart());
-        axios.post('http://127.0.0.1:8000/login/', 
+        axios.post('https://byte-me-backend.herokuapp.com/login/', 
         {
             username: username,
             password: password
@@ -69,7 +69,7 @@ export const authLogin = (username, password) => {
 export const authSignup = (username, email, password1, password2, firstName, lastName) => {
     return dispatch => {
         dispatch(authStart());
-        axios.post('http://127.0.0.1:8000/signup/', {
+        axios.post('https://byte-me-backend.herokuapp.com/signup/', {
             username: username,
             email: email,
             password1: password1,

@@ -17,7 +17,7 @@ class ArticleList extends React.Component {
     	const userId = localStorage.getItem('token');
     	if(localStorage.getItem('token') == null){
     		axios.get(
-        			'http://127.0.0.1:8000/blog/home_posts/'
+        			'https://byte-me-backend.herokuapp.com/blog/home_posts/'
         		)
             .then(res => {
             	this.setState({
@@ -27,7 +27,7 @@ class ArticleList extends React.Component {
     		});
     	}else{
     		axios.get(
-        			'http://127.0.0.1:8000/blog/user_home_posts/',
+        			'https://byte-me-backend.herokuapp.com/blog/user_home_posts/',
         			{
         				params:{
         					user_id : userId

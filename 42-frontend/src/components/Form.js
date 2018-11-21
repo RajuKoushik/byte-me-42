@@ -93,7 +93,7 @@ state = { visible: false };
         const user_id = localStorage.getItem('token');
         console.log(user_id);
         this.onClose();
-       return axios.post('http://127.0.0.1:8000/blog/create/newpost/', {
+       return axios.post('https://byte-me-backend.herokuapp.com/blog/create/newpost/', {
                     title: title,
                     content: content,
                     user_id : user_id,
