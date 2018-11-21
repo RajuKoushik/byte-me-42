@@ -62,6 +62,7 @@ class ArticleDetail extends React.Component {
                     branchCount: this.state.branchTest
                 });
                 console.log("branch count"+this.state.branchCount)
+                console.log("changes after fork count"+this.state.articles)
             })
         }
         

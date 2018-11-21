@@ -73,14 +73,22 @@ class Branch extends React.Component {
     }
 
 
-    handleFormSubmit = (event, id) => {
-        console.log(this.state.text);
+    handleFormSubmit = (event, id,titleId) => {
+        console.log(titleId);
         console.log(id);
-        //const title = event.target.elements.title.value;
-        //const content = event.target.elements.content.value;
-        //const user_id = localStorage.getItem('token');
-        //console.log(content);
+        const origin_id = id;
+        const title = titleId;
+        const content = this.state.text;
+        const user_id = localStorage.getItem('token');
         this.onClose();
+        return axios.post('http://127.0.0.1:8000/blog/fork/post/', {
+                    origin_id: origin_id,
+                    title: title,
+                    content : content,
+                    user_id : user_id
+                })
+                .then(res => console.log(res))
+                .catch(error => console.err(error));
     }
 
     render() {
@@ -162,7 +170,7 @@ class Branch extends React.Component {
                                         </Button>
                                         <Button htmlType="submit" onClick={(event) => this.handleFormSubmit(
                                             event,
-                                            item.id)} type="primary">Submit</Button>
+                                            item.id,item.title)} type="primary">Submit</Button>
                                     </div>
                                 </Drawer>
                             </div>

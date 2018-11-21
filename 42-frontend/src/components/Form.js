@@ -78,6 +78,7 @@ state = { visible: false };
         const title = this.state.title;
         const content = this.state.text;
         const user_id = localStorage.getItem('token');
+        console.log(user_id);
         this.onClose();
        return axios.post('http://127.0.0.1:8000/blog/create/newpost/', {
                     title: title,
