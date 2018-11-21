@@ -64,13 +64,11 @@ class ArticleList extends React.Component {
 	            <div>
 	            	<Categories/>
 	            	<br />
+	            	<CustomForm />
+	            	<br />
 	                <Articles data={this.state.articles} />
-	                <br />
-	                <h2>Create an article</h2>
-	                <CustomForm 
-	                    requestType="post"
-	                    articleID={null}
-	                    btnText="Create" />
+	                
+	                
 	            </div>
         	)
     	}

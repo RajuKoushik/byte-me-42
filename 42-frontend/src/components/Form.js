@@ -78,10 +78,12 @@ state = { visible: false };
         const title = this.state.title;
         const content = this.state.text;
         const user_id = localStorage.getItem('token');
-       return axios.post('http://127.0.0.1:8000/blog/create/newpost', {
+        this.onClose();
+       return axios.post('http://127.0.0.1:8000/blog/create/newpost/', {
                     title: title,
                     content: content,
-                    user_id : user_id
+                    user_id : user_id,
+                    category : 'travel'
                 })
                 .then(res => console.log(res))
                 .catch(error => console.err(error));
