@@ -6,6 +6,8 @@ import CustomForm from '../components/Form';
 import Branch from '../components/Branch';
 import Articles from '../components/Article';
 import { List } from 'antd';
+
+
 class ArticleDetail extends React.Component {
 
     state = {

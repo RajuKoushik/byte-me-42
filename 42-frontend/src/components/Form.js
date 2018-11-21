@@ -11,18 +11,31 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 const { Option } = Select;
 
 const buttonStyle = {
-    width: '30%',
+    width: '20%',
+    height : '4.5%',
     position : 'absolute',
-    marginTop : '18%',
-    marginRight : '50%',
-    backgroundColor : '#581845'
-
+    marginTop : '19%',
+    marginRight : '38%',
+    backgroundColor : '#606468',
+    borderColor : '#606468',
+    font: ' "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    letterSpacing : '1.7px',
+    fontWeight : '100'
 
 }
 
 const postStyle = {
-    width : '80%'
+    width : '120%',
+    marginLeft : '-14%'
 }
+
+const titleStyle = {
+    font: ' "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    letterSpacing : '1.7px',
+    fontWeight : '100'
+}
+
+
 
 
 class CustomForm extends React.Component {
@@ -95,10 +108,10 @@ state = { visible: false };
         
             <div style={{ background: '#ECECEC', padding: '30px',alignItems: 'center',textAlign: 'center'}}>
                 <Button type="primary" style = {buttonStyle} onClick={this.showDrawer}>
-                    Post
+                    CREATE  POST
                 </Button>
                 <Drawer
-                    title="Fork"
+                    title = "FORK"
                     width={420}
                     placement="right"
                     onClose={this.onClose}
@@ -108,13 +121,16 @@ state = { visible: false };
                         height: 'calc(100% - 55px)',
                         overflow: 'auto',
                         paddingBottom: 53,
+                        fontFamily: 'Marvel, sans-serif',
+                        fontSize : '20%'
                     }}
+
 
                 >
                     <Form layout="vertical" hideRequiredMark>
                          <Row gutter={16} style={postStyle}>
                             <Col span={24}>
-                                <Form.Item label="title" >
+                                <Form.Item style={titleStyle} label="title" >
                                     {getFieldDecorator('title',
                                         {
                                             rules: [
@@ -123,13 +139,13 @@ state = { visible: false };
                                                     message: 'please enter your title',
                                                 },
                                             ],
-                                        })(<Input.TextArea name="content" rows={4} placeholder="please enter your title" value={this.state.title} onChange = {this.handleTitleChange}/>)}
+                                        })(<Input.TextArea name="content" style = {postStyle} rows={4} placeholder="please enter your title" value={this.state.title} onChange = {this.handleTitleChange}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row gutter={16} style={postStyle}>
                             <Col span={24}>
-                                <Form.Item label="content" >
+                                <Form.Item style={titleStyle} label="content" >
                                     {getFieldDecorator('content',
                                         {
                                             rules: [
@@ -138,7 +154,7 @@ state = { visible: false };
                                                     message: 'please enter your content',
                                                 },
                                             ],
-                                        })(<Input.TextArea name="content" rows={4} placeholder="please enter your content" value={this.state.text} onChange = {this.handleContentChange}/>)}
+                                        })(<Input.TextArea name="content" style = {postStyle} rows={4} placeholder="please enter your content" value={this.state.text} onChange = {this.handleContentChange}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
