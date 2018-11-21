@@ -4,11 +4,11 @@ import { Popover, Button } from 'antd';
 import { Drawer, Form, Col, Row, Input, Select, DatePicker } from 'antd';
 import * as props from "antd";
 import * as ReactDOM from "antd";
-
+import axios from 'axios';
 
 const { Option } = Select;
 
-import axios from 'axios';
+
 
 const IconText = ({ type, text }) => (
     <span>
@@ -19,7 +19,7 @@ const IconText = ({ type, text }) => (
 
 
 const buttonStyle = {
-    opacity : '0.4',
+    opacity : '0.6',
     position : 'absolute',
     marginTop : '5%',
     backgroundColor : '#581845'
@@ -91,15 +91,16 @@ class Branch extends React.Component {
 
                     itemLayout="vertical"
                     size="large"
+                    grid={{ gutter: 16, column: 1 }}
                     dataSource={this.props.data}
                     renderItem={item => (
                         <List.Item
                             key={item.title}
                             actions={[<IconText type="star-o" text="156"/>]}
-
+                            style={{ background: '#ECECEC', padding: '30px',alignItems: 'center'}}
                         >
                             <List.Item.Meta
-                                avatar={<Avatar src={item.avatar}/>}
+                                avatar={<Avatar src="http://www.sticomputer.com/newwebsite/wp-content/uploads/2018/03/Blog-Post-Icon-Navy-Blue-100x100.jpg"/>}
                                 //title={<a href={`/branch/${item.id}`}>{item.title}</a>}
                                 description={item.user_id}
                             />
@@ -173,7 +174,7 @@ class Branch extends React.Component {
                 />
                 <List
                   grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 1, xl: 20, xxl: 3 }}
-                  dataSource={props.branchnumber}
+                  dataSource={this.props.branchnumber}
                   renderItem={item => (
                     <List.Item>
                       <Button href={`/branch/${item.firstPostId}/${item.branchIndex}`} type="primary">{item.branchIndex}</Button>
@@ -189,5 +190,8 @@ class Branch extends React.Component {
         );
     }
 
+}
 
-export default Branch;
+const App = Form.create()(Branch);
+
+export default App;

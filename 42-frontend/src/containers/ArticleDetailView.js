@@ -17,6 +17,7 @@ class ArticleDetail extends React.Component {
         const articleID = this.props.match.params.articleID;
         const branchID = this.props.match.params.branchID;
         const categoryID = this.props.match.params.categoryID;
+        console.log(categoryID);
         if(typeof branchID !== "undefined"){
             console.log("branchID"+branchID)
              axios.get(`https://byte-me-backend.herokuapp.com/blog/post/${articleID}/${branchID}`)
@@ -35,6 +36,7 @@ class ArticleDetail extends React.Component {
                 console.log("branch count"+this.state.branchCount)
             })
         }else if(typeof categoryID !== "undefined"){
+            console.log("category");
              axios.get(`http://127.0.0.1:8000/blog/category/${categoryID}`)
             .then(res => {
                 console.log(res.data)

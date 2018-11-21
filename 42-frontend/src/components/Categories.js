@@ -36,7 +36,7 @@ const Categories = (props) => {
 	    renderItem={item => (
 	      <List.Item >
 	       <Card >
-            <List.Item.Meta title={<a href={`/branch/${item.categoryId}`}>{item.title}</a>}/>
+            <List.Item.Meta title={<a href={`/category/${item.categoryId}`}>{item.title}</a>}/>
             </Card>
           </List.Item>
           
