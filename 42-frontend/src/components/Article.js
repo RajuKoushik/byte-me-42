@@ -13,6 +13,10 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
+const textStyle = {
+    fontFamily: 'Marvel, sans-serif'
+}
+
 const Articles = (props) => {
   return (
   <div>
@@ -25,7 +29,7 @@ const Articles = (props) => {
             renderItem={item => (
             <List.Item
                 key={item.title}
-                style={{ background: '#ECECEC', padding: '20px',alignItems: 'center'}}
+                style={{ background: '#ECECEC', padding: '20px',alignItems: 'center', font: '100% "Lucida Sans Unicode", "Lucida Grande", sans-serif',}}
                 extra={<img width={272} alt="logo" src="https://nonprofitorgs.files.wordpress.com/2010/07/blog.jpg" />}
 
             >

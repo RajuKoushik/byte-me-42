@@ -4,25 +4,28 @@ import axios from 'axios';
 
 const data = [
   {
-    title: 'Travel',
+    title: 'TRAVEL',
     categoryId: 'travel'
   },
   {
-    title: 'Fashion',
+    title: 'FASHION',
     categoryId: 'fashion'
   },
   {
-    title: 'Technology',
+    title: 'TECHNOLOGY',
     categoryId: 'tech'
   },
   {
-    title: 'Food',
+    title: 'FOOD',
     categoryId: 'food'
   },	
 ];
 
 const categoryStyle = {
-	width:'500px',height:'600px'
+    font: '150% "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    letterSpacing : '2.3px',
+    fontSize: '50px',
+    fontWeight : '700'
 }
 
 const Categories = (props) => {
@@ -31,12 +34,12 @@ const Categories = (props) => {
     return (
      <List
      	 grid={{ gutter: 16, column: 4 }}
-     	style={{ background: '#ECECEC', padding: '30px',alignItems: 'center',textAlign: 'center'}}
-	    dataSource={data}
+     	style={{ background: '#ECECEC', padding: '30px', alignItems: 'center', textAlign: 'center', fontSize: '70%'}}
+	    dataSource ={data}
 	    renderItem={item => (
 	      <List.Item >
 	       <Card >
-            <List.Item.Meta title={<a href={`/category/${item.categoryId}`}>{item.title}</a>}/>
+            <List.Item.Meta style={categoryStyle} title={<a href={`/category/${item.categoryId}`}>{item.title}</a>}/>
             </Card>
           </List.Item>
           

@@ -19,15 +19,21 @@ const IconText = ({ type, text }) => (
 
 
 const buttonStyle = {
-    opacity : '0.6',
     position : 'absolute',
-    marginTop : '5%',
-    backgroundColor : '#581845'
-
+    marginTop : '9%',
+    backgroundColor : '#606468',
+    borderColor : '#606468',
+    font: '"Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    letterSpacing : '1.7px',
+    fontWeight : '100'
 }
 
 const postStyle = {
-    width : '80%'
+    width : '120%',
+    marginLeft : '-14%',
+    font: ' "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+    letterSpacing : '1.7px',
+    fontWeight : '100'
 }
 
 
@@ -115,7 +121,7 @@ class Branch extends React.Component {
 
                             <div>
                                 <Button type="primary" style = {buttonStyle} onClick={this.showDrawer}>
-                                    Fork
+                                    >
                                 </Button>
                                 <Drawer
                                     title="Fork"
@@ -142,7 +148,7 @@ class Branch extends React.Component {
                                                                     message: 'please enter your content',
                                                                 },
                                                             ],
-                                                        })(<Input.TextArea name="content" rows={4} placeholder="please enter your content" value={this.state.text} onChange = {this.handleContentChange}/>)}
+                                                        })(<Input.TextArea name="content" style = {postStyle} rows={4} placeholder="please enter your content" value={this.state.text} onChange = {this.handleContentChange}/>)}
                                                 </Form.Item>
                                             </Col>
                                         </Row>
