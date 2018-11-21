@@ -76,7 +76,7 @@ class ArticleDetail extends React.Component {
     }
 
     render() {
-        if(typeof this.state.category !== "undefined"){
+        if(Object.getOwnPropertyNames(this.state.category).length > 0){
              console.log("Articles called");
             return (
             <div>
