@@ -3,7 +3,7 @@ appdirs==1.4.3
 astroid==1.6.5
 autoflake==0.6.6
 autopep8==1.4.3
-Babel==2.6.0
+Babel==2.9.1
 bandit==1.5.1
 certifi==2017.11.5
 chardet==3.0.4
